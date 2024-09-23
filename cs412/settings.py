@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'quotes_hard.apps.QuotesHardConfig'
+    'quotes'
 ]
 
 MIDDLEWARE = [
