@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import random # import the random module
+import django.templatetags.static
 
 quotes = [
    "What really changed was when I moved to LA and my eyes were open to so many new things and fun people. I started doing things I never thought I would do and the new sound reflected what was genuinely going on in my life. - Chappell Roan",
