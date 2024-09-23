@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse
+import time
+import datetime # import the datetime module
 import random # import the random module
 import django.templatetags.static
 
@@ -10,7 +13,7 @@ quotes = [
 ]
 
 images = [
-    "images/chappell1.jpg",
+    "chappell1.jpg",
     "images/chappell2.jpg",
     "images/chappell3.jpg",
     "images/chappell4.jpg"
@@ -21,20 +24,25 @@ def quote(request):
     # get a random quote
     quote = random.choice(quotes)
     image = random.choice(images)
+    current_time = datetime.datetime.now()
     # pass the quote to the template
-    return render(request, 'quotes/quote.html', {'quote': quote, 'image': image})
+    return render(request, 'quotes/quote.html', {'quote': quote, 'image': image, 'current_time': current_time})
 
 # show all quotes
 def show_all(request):
+    current_time = datetime.datetime.now()
     context={
         'quotes': quotes,
-        'images': images
+        'images': images,
+        'current_time': current_time
     }
     # pass all quotes to the template
     return render(request, 'quotes/show_all.html', context)
 
 # show the about page
 def about(request):
+    current_time = datetime.datetime.now()
     bio = "Chappell Roan is a singer-songwriter from Willard, Missouri. She moved to Los Angeles to pursue her music career and has released several singles and an EP. Her music is a mix of pop, rock, and alternative influences. She has been praised for her powerful voice and emotional lyrics."
-    context = {'bio': bio}
+    context = {'bio': bio,
+               'current_time': current_time}
     return render(request, 'quotes/about.html', context)
