@@ -1,7 +1,7 @@
 <!-- quotes/template/base.html -->
-<!DOCTYPE html>
-common HTML code that will be reused by all the other templates-->
-{%load static%}
+{% load static %}
+
+<!--common HTML code that will be reused by all the other templates-->
 <html>
     <head>
         <title>{% block title %}Quote of the Day{% endblock %}</title>
@@ -13,13 +13,13 @@ common HTML code that will be reused by all the other templates-->
             <ul>
                 <li><a href="{% url 'quote'%}">Home</a></li>
                 <li><a href="{% url 'show_all'%}">Show All Quotes</a></li>
-                <li><a href="{% url 'About'%}">About</a></li>
+                <li><a href="{% url 'about'%}">About</a></li>
             </ul>
         </nav>
         {%block content%}
         <!-- fill in section with specific page detail-->
         {%endblock%}
-        <hr>
+
         This page was generated at {{current_time}}.
     </body>
 </html>

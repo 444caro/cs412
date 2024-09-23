@@ -9,10 +9,10 @@ quotes = [
 ]
 
 images = [
-    "https://www.rollingstone.com/wp-content/uploads/2024/03/Chappell-24-crop.jpg",
-    "https://mediaproxy.salon.com/width/1200/https://media2.salon.com/2024/08/chappel_roan_2166381392.jpg",
-    "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2171406333.jpg?c=original",
-    "https://deadline.com/wp-content/uploads/2024/09/GettyImages-2171421527.jpg?w=681&h=383&crop=1"
+    "images/chappell1.jpg",
+    "images/chappell2.jpg",
+    "images/chappell3.jpg",
+    "images/chappell4.jpg"
 ]
 
 # show a random quote and image
