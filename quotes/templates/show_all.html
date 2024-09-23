@@ -1,0 +1,17 @@
+<!-- quotes/template/quotes/show_all.html -->
+{% extends 'base.html' %}
+{% block title %}All Chappell Roan Quotes{% endblock %}
+{% block content %}
+    <h2>All Quotes</h2>
+    <ul>
+        {% for quote in quotes %}
+            <li>{{quote}}</li>
+        {% endfor %}
+    </ul>
+    <h2>All Images </h2>
+    <ul>
+        {% for image in images %}
+            <li>{{image}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
