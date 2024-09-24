@@ -8,14 +8,14 @@ h1{
     border: none;
 }
 h2{
-    text-align: left;
+    text-align: center;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 1.5em;
+    font-size: 5em;
     margin: 5px;
     padding: 5px;
 }
 h3{
-    text-align: left;
+    text-align: center;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 1em;
     margin: 5px;
@@ -34,4 +34,26 @@ div{
     border: 1px solid darkolivegreen;
     margin: 20px;
     padding: 10px;
+}
+
+<!--styles for paragraphs-->
+p{
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1em;
+    margin: 5px;
+    padding: 5px;
+}
+
+.navitem{
+    margin: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
