@@ -1,0 +1,18 @@
+<!-- /django/formdata/templates/formdata/base.html -->
+ <!-- Base Template -->
+  <!-- quotes/template/base.html -->
+{% load static %}
+
+<!--common HTML code that will be reused by all the other templates-->
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+
+    <body>
+        {%block content%}
+        <!-- fill in section with specific page detail-->
+        {%endblock%}
+    </body>
+</html>
