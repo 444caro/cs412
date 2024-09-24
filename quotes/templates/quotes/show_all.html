@@ -3,15 +3,13 @@
 {% block title %}All Chappell Roan Quotes{% endblock %}
 {% block content %}
     <h2>All Quotes</h2>
-    <ul>
         {% for quote in quotes %}
-            <li>{{quote}}</li>
+            <p>{{quote}}</p>
+            <br>
         {% endfor %}
-    </ul>
     <h2>All Images </h2>
-    <ul>
         {% for image in images %}
-            <li><img src = "{{ image }}" alt = "Chappell Roan"></li>
+            <img src = "{{ image }}" alt = "Chappell Roan">
+            <br>
         {% endfor %}
-    </ul>
 {% endblock %}

@@ -13,10 +13,11 @@ quotes = [
 ]
 
 images = [
-    "images/chappell1.jpg",
-    "images/chappell2.jpg",
-    "images/chappell3.jpg",
-    "images/chappell4.jpg"
+    "https://lastfm.freetls.fastly.net/i/u/770x0/8c2334c0251175816b33c7b57775bc9c.jpg#8c2334c0251175816b33c7b57775bc9c",
+    "https://lastfm.freetls.fastly.net/i/u/770x0/8ab276ff6da181b9962dde2e15f16dfc.jpg#8ab276ff6da181b9962dde2e15f16dfc",
+    "https://lastfm.freetls.fastly.net/i/u/770x0/cd5995cb36af9a595a90db12c7746034.jpg#cd5995cb36af9a595a90db12c7746034",
+    "https://lastfm.freetls.fastly.net/i/u/770x0/802fbd2e8b4e6f7ed6169f3869a43012.jpg#802fbd2e8b4e6f7ed6169f3869a43012",
+    "https://lastfm.freetls.fastly.net/i/u/770x0/489f92cc2b89ec35f298b66f5be42843.jpg#489f92cc2b89ec35f298b66f5be42843"
 ]
 
 # show a random quote and image
