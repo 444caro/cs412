@@ -13,7 +13,7 @@ quotes = [
 ]
 
 images = [
-    "chappell1.jpg",
+    "images/chappell1.jpg",
     "images/chappell2.jpg",
     "images/chappell3.jpg",
     "images/chappell4.jpg"
