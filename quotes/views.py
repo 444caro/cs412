@@ -6,10 +6,13 @@ import random # import the random module
 import django.templatetags.static
 
 quotes = [
-   "What really changed was when I moved to LA and my eyes were open to so many new things and fun people. I started doing things I never thought I would do and the new sound reflected what was genuinely going on in my life. - Chappell Roan",
-   "Give it a chance, it's going to feel silly. Allow yourself to feel silly and fun. - Chappell Roan",
-   "If I saw myself now when I was 16 I would be like no way there's no way I would do that. Let myself write a song that's about being a hot person and being a cheerleader, I'm too serious for that. If I had to give her advice I would say follow your gut and that you're cool. I always told myself I wish I was cooler, prettier, smarter, I would have told her that you are enough exactly how you are in every aspect. - Chappell Roan",
-   "It's awesome to say no to things, even though they're offering a lot of money. I have the power to say no. - Chappell Roan" 
+   "What really changed was when I moved to LA and my eyes were open to so many new things and fun people.",
+   "I started doing things I never thought I would do and the new sound reflected what was genuinely going on in my life.",
+   "Give it a chance, it's going to feel silly. Allow yourself to feel silly and fun.",
+   "If I saw myself now when I was 16 I would be like no way there's no way I would do that.",
+   "If I had to give her advice I would say follow your gut and that you're cool.",
+   "I always told myself I wish I was cooler, prettier, smarter, I would have told her that you are enough exactly how you are in every aspect.",
+   "It's awesome to say no to things, even though they're offering a lot of money. I have the power to say no." 
 ]
 
 images = [

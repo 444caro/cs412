@@ -6,13 +6,16 @@ h1{
     margin: 5px;
     padding: 5px;
     border: none;
+    color: rgb(167, 208, 169);
 }
 h2{
     text-align: center;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:'Franklin Gothic Medium', 'Arial Wide', Arial, sans-serif;
     font-size: 5em;
     margin: 5px;
     padding: 5px;
+    background-color: darkolivegreen;
+    color: rgb(167, 208, 169);
 }
 h3{
     text-align: center;
@@ -24,9 +27,6 @@ h3{
 body{
     color: darkolivegreen;
     background-color: rgb(167, 208, 169);
-    font-family:'Times New Roman', Times, serif
-    
-
 }
 
 div{
@@ -36,24 +36,48 @@ div{
     padding: 10px;
 }
 
-<!--styles for paragraphs-->
 p{
     text-align: center;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 1em;
-    margin: 5px;
-    padding: 5px;
-}
-
-.navitem{
+    font-size: 2.5em;
     margin: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding: 5px;
 }
 
 img{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 65%;
+    padding-bottom: 15px;
+}
+
+footer{
+    text-align: right;
+    padding: 10px;
+    background-color: darkolivegreen;
+    color: rgb(167, 208, 169);
+}
+
+.navitem{
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2em;
+    margin: 5px;
+    padding: 5px;
+    background-color: darkolivegreen;
+    color: rgb(167, 208, 169);
+}
+a{
+    text-decoration: none;
+    margin: 5px;
+    padding-right: 152px;
+    padding-left: 152px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1em;
+    color: darkolivegreen;
+
+}
+a:hover{
+    text-decoration-line: underline;
 }
