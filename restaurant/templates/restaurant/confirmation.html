@@ -1,7 +1,14 @@
 <!-- templates/restaurant/confirmation.html -->
-{% extends 'base.html' %}
+{% extends 'restaurant/base.html' %}
 {% block title %}Confirmation{% endblock %}
 {% block content %}
-    <h2>Confirmation</h2>
-    <!-- TODO: implement confirmation -->
+    <h2>Order Confirmation</h2>
+    <p>Thank you, {{ customer_name }}! Here is your order summary:</p>
+    <ul>
+        {% for item in items_ordered %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    <p>Total Price: ${{ total_price }}</p>
+    <p>Your order will be ready at {{ ready_time }}</p>
 {% endblock %}

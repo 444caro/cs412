@@ -4,7 +4,7 @@
 <!--common HTML code that will be reused by all the other templates-->
 <html>
     <head>
-        <title>{% block title %}Restaurant{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
 
@@ -12,7 +12,6 @@
         <nav>
             <a href="{% url 'main'%}">Main</a></li>
             <a href="{% url 'order'%}">Order</a>
-            <a href="{% url 'confirmation'%}">Confirmation</a>
         </nav>
         {%block content%}
         <!-- fill in section with specific page detail-->

@@ -1,7 +1,19 @@
 <!-- templates/restaurant/main.html -->
-{% extends 'base.html' %}
+{% extends 'restaurant/base.html' %}
 {% block title %}Main{% endblock %}
 {% block content %}
     <h2>Main</h2>
     <!-- TODO: implement Main -->
+    <h2>Welcome to our restaurant!</h2>
+    <div>
+        <h3>Hours of Operation:</h3>
+        <p>Monday - Friday: 9am - 9pm</p>
+        <p>Saturday - Sunday: 10am - 8pm</p>
+    </div>
+    <img src = "{{ image }}" alt = "Restaurant">
+    <div>
+        <h3>Location:</h3>
+        <p>444 Food St, Boston, MA 02215</p>
+    </div>
+    
 {% endblock %}

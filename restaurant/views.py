@@ -5,8 +5,11 @@ from datetime import timedelta, datetime # import the datetime module
 import random # import the random module
 import django.templatetags.static
 
+image = "https://images.squarespace-cdn.com/content/v1/6200d56d004f564915f49dea/536d54bf-2182-44a4-aa86-47b9b0773ffc/Ethos+1101211900.png"
+
 def main(request):
-    return render(request, 'restaurant/main.html')
+    context = {'image': image}
+    return render(request, 'restaurant/main.html', context)
 
 def order(request):
     specials = [

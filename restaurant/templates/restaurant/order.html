@@ -1,7 +1,29 @@
 <!-- templates/restaurant/order.html -->
-{% extends 'base.html' %}
+{% extends 'restaurant/base.html' %}
 {% block title %}Order{% endblock %}
 {% block content %}
-    <h2>Order</h2>
-    <!-- TODO: implement form -->
+<h2>Place Your Order</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="item1">Pizza ($10):</label>
+        <input type="checkbox" name="items" value="Pizza">
+        <input type="hidden" name="prices" value="10">
+
+        <label for="item2">Burger ($8):</label>
+        <input type="checkbox" name="items" value="Burger">
+        <input type="hidden" name="prices" value="8">
+
+        <label for="item3">Pasta ($12):</label>
+        <input type="checkbox" name="items" value="Pasta">
+        <input type="hidden" name="prices" value="12">
+
+        <label for="daily_special">{{ daily_special }} ($7):</label>
+        <input type="checkbox" name="items" value="{{ daily_special }}">
+        <input type="hidden" name="prices" value="7">
+
+        <label for="name">Your Name:</label>
+        <input type="text" name="name" required>
+
+        <button type="submit">Submit Order</button>
+    </form>
 {% endblock %}
