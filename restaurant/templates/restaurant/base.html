@@ -1,0 +1,24 @@
+<!-- templates/restaurant/base.html -->
+{% load static %}
+
+<!--common HTML code that will be reused by all the other templates-->
+<html>
+    <head>
+        <title>{% block title %}Restaurant{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+
+    <body>
+        <nav>
+            <a href="{% url 'main'%}">Main</a></li>
+            <a href="{% url 'order'%}">Order</a>
+            <a href="{% url 'confirmation'%}">Confirmation</a>
+        </nav>
+        {%block content%}
+        <!-- fill in section with specific page detail-->
+        {%endblock%}
+        <footer>
+            This page was generated at {{current_time}}
+        </footer>
+    </body>
+</html>
