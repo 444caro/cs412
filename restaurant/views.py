@@ -8,7 +8,7 @@ import django.templatetags.static
 image = "https://images.squarespace-cdn.com/content/v1/6200d56d004f564915f49dea/536d54bf-2182-44a4-aa86-47b9b0773ffc/Ethos+1101211900.png"
 
 def main(request):
-    context = {'image': image}
+    context = {'image': image, 'time': datetime.now().strftime("%I:%M %p")}
     return render(request, 'restaurant/main.html', context)
 
 def order(request):
@@ -35,15 +35,16 @@ def order(request):
         }
     ]
     daily_special = random.choice(specials)
-    context = {'daily_special': daily_special}
+    context = {'daily_special': daily_special, 'time': datetime.now().strftime("%I:%M %p")}
     return render(request, 'restaurant/order.html', context)
 
 def confirmation(request):
     if request.method == 'POST':
         # retreive the form data
         name = request.POST['name']
-        items_ordered = request.POST['items_ordered']
-        total_price = sum([float(price) for price in request.POST.getlist('price')])
+        items_ordered = request.POST.getlist('items')
+        prices = request.POST.getlist('price')
+        total_price = sum([float(price) for price in prices])
         
         # generate the 'ready time', random int between 20 and 50 minutes 
         ready_time = datetime.now() + timedelta(minutes=random.randint(20, 50))
@@ -51,7 +52,8 @@ def confirmation(request):
         context = {'name': name,
                    'items_ordered': items_ordered,
                    'total_price': total_price,
-                   'ready_time': ready_time}
+                   'time': datetime.now().strftime("%I:%M %p"),
+                   'ready_time': ready_time.strftime("%I:%M %p")}
         
         return render(request, 'restaurant/confirmation.html', context)
     else:

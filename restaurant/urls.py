@@ -7,7 +7,7 @@ from . import views
 
 # all of the URLs that are part of this app
 urlpatterns = [
-    path('main/',views.main, name = 'main'),
+    path('',views.main, name = 'main'),
     path('order/',views.order, name = 'order'),
     path('confirmation/',views.confirmation, name = 'confirmation')
 ]

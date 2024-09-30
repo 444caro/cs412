@@ -3,7 +3,7 @@
 {% block title %}Order{% endblock %}
 {% block content %}
 <h2>Place Your Order</h2>
-    <form method="POST">
+    <form method="POST" action = "{% url 'confirmation' %}">
         {% csrf_token %}
         <label for="item1">Pizza ($10):</label>
         <input type="checkbox" name="items" value="Pizza">
@@ -17,9 +17,9 @@
         <input type="checkbox" name="items" value="Pasta">
         <input type="hidden" name="prices" value="12">
 
-        <label for="daily_special">{{ daily_special }} ($7):</label>
+        <label for="daily_special">{{ daily_special }} (${{ daily_special.price }}):</label>
         <input type="checkbox" name="items" value="{{ daily_special }}">
-        <input type="hidden" name="prices" value="7">
+        <input type="hidden" name="prices" value="{{ daily_special.price }}">
 
         <label for="name">Your Name:</label>
         <input type="text" name="name" required>
