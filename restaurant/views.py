@@ -14,24 +14,24 @@ def main(request):
 def order(request):
     specials = [
         {
-            'name': 'Pasta',
+            'name': 'Vodka Riggatoni Pasta', 
             'price': 15.99
         },
         {
-            'name': 'Burger',
-            'price': 12.99
+            'name': 'Georges Double Burger',
+            'price': 16.99
         },
         {
-            'name': 'Salad',
-            'price': 8.99
-        },
-        {
-            'name': 'Pizza',
+            'name': 'Jennies Extra Special Salad',
             'price': 10.99
         },
         {
-            'name': 'Sandwich',
-            'price': 7.99
+            'name': 'Three Cheese Pizza with Mushrooms',
+            'price': 13.99
+        },
+        {
+            'name': 'Petras Flaming Hot Sandwich',
+            'price': 11.99
         }
     ]
     daily_special = random.choice(specials)
@@ -43,14 +43,18 @@ def confirmation(request):
         # retreive the form data
         name = request.POST['name']
         items_ordered = request.POST.getlist('items')
-        prices = request.POST.getlist('price')
-        total_price = sum([float(price) for price in prices])
+        total_price = 0
+        ordered_items = []
+        for i in items_ordered:
+            i_name, i_price = i.split('-')
+            ordered_items.append(i_name)
+            total_price += float(i_price)
         
         # generate the 'ready time', random int between 20 and 50 minutes 
         ready_time = datetime.now() + timedelta(minutes=random.randint(20, 50))
         
         context = {'name': name,
-                   'items_ordered': items_ordered,
+                   'items_ordered': ordered_items,
                    'total_price': total_price,
                    'time': datetime.now().strftime("%I:%M %p"),
                    'ready_time': ready_time.strftime("%I:%M %p")}

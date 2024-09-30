@@ -9,6 +9,6 @@
         <li>{{ item }}</li>
         {% endfor %}
     </ul>
-    <p>Total Price: ${{ total_price }}</p>
+    <p>Total Price: ${{ total_price|floatformat:2 }}</p>
     <p>Your order will be ready at {{ ready_time }}</p>
 {% endblock %}

@@ -5,24 +5,31 @@
 <h2>Place Your Order</h2>
     <form method="POST" action = "{% url 'confirmation' %}">
         {% csrf_token %}
-        <label for="item1">Pizza ($10):</label>
-        <input type="checkbox" name="items" value="Pizza">
-        <input type="hidden" name="prices" value="10">
+        <label for="item1">Pizza ($10)</label>
+        <input type="checkbox" name="items" value="Pizza-10">
+        <br><br>
 
-        <label for="item2">Burger ($8):</label>
-        <input type="checkbox" name="items" value="Burger">
-        <input type="hidden" name="prices" value="8">
 
-        <label for="item3">Pasta ($12):</label>
-        <input type="checkbox" name="items" value="Pasta">
-        <input type="hidden" name="prices" value="12">
+        <label for="item2">Burger ($8)</label>
+        <input type="checkbox" name="items" value="Burger-8">
+        <br><br>
 
-        <label for="daily_special">{{ daily_special }} (${{ daily_special.price }}):</label>
-        <input type="checkbox" name="items" value="{{ daily_special }}">
-        <input type="hidden" name="prices" value="{{ daily_special.price }}">
+        <label for="item3">Pasta ($12)</label>
+        <input type="checkbox" name="items" value="Pasta-12">
+        <br><br>
+
+        <label for="item4">Sandwich ($9)</label>
+        <input type="checkbox" name="items" value="Sandwich-9">
+        <br><br>
+
+        Daily Special: <br>
+        <label for="daily_special">{{ daily_special.name }} (${{ daily_special.price }})</label>
+        <input type="checkbox" name="items" value="{{ daily_special }}-{{daily_special.price}}">
+        <br><br>
 
         <label for="name">Your Name:</label>
         <input type="text" name="name" required>
+        <br><br>
 
         <button type="submit">Submit Order</button>
     </form>
