@@ -9,6 +9,7 @@ class Article(models.Model):
     author = models.TextField(blank = False)
     text = models.TextField(blank = False)
     published = models.DateTimeField(auto_now = True)  #when object is created, it will automatically set the current time
+    image_url = models.URLField(blank=True)   #true means optional field
     
     def __str__(self):
         '''return a string representation of the object'''
