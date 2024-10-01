@@ -1,0 +1,9 @@
+<!-- blog/templates/blog/show_all.html-->
+<h1> Show all Articles </h1>
+<div>
+{% for article in articles %}   <!--one article at a time-->
+    <h2> {{ article.title }} </h2>
+    <p> by {{ article.author }} at {{article.published}}</p>
+    <p> {{ article.text }} </p>
+{% endfor %}
+</div>
