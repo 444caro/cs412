@@ -2,7 +2,8 @@
 
 body {
     margin: 30px;
-    background: #d1dedd;
+    background: rgb(167, 208, 169);
+    color: darkolivegreen;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -11,21 +12,36 @@ ul, li {
     list-style-type: none;
 }
 
-h1, h2, h3 {
-    color: #767f7e;
+h1{
+    color: rgb(167, 208, 169);
+    text-align: center;
+    padding-top: 20px;
+    font-size: 3em;
+}
+
+h2, h3 {
+    color: darkolivegreen;
 }
 
 p {
-    color: #828b82;
+    color: rgb(167, 208, 169);
+    text-align: right;
+}
+footer{
+    background: darkolivegreen;
+    padding: 5px;
 }
 
 header {
     max-width: 1200px;
     margin: 40px auto;
-    border-bottom: 1px solid #bbc7c7;
+    background: darkolivegreen;
+    color: rgb(167, 208, 169);
+    border-bottom: 1px solid darkolivegreen;
 }
+
 .grid-container {
-    background: #eee;
+    background: rgb(167, 208, 169);
     max-width: 900px;
     display: grid;
     /* grid-template-columns: 300px 300px 300px; */
