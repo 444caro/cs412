@@ -1,0 +1,18 @@
+<!-- templates/show_all_profiles.html -->
+{% extends 'mini_fb/base.html' %}
+<h1>Showing all Articles</h1>
+<!-- display all profiles -->
+{% block content %}
+<main class="grid-container">
+    {% for p in profiles %}
+    <profile>
+        <img src="{{p.image_url}}" alt="{{p.image_url}}">
+        <div>
+        <h2>{{p.firstName}}{{p.lastName}}</h2>
+        <strong> from {{p.city}} </strong>
+        <strong> email: {{p.email}} </strong>
+        </div>
+    </profile>
+    {% endfor %}
+</main>
+{% endblock %}
