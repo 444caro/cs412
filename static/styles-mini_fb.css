@@ -35,7 +35,7 @@ header {
     margin: 20px auto;
 }
 
-article.featured {
+profile.featured {
     grid-column: span 3;
     display: grid; /* nested grid */
     gap: 60px;
@@ -45,12 +45,12 @@ article.featured {
     padding-bottom: 40px;
 }
 
-article img, article.featured img {
+profile img, profile.featured img {
     width: 100%;
     border: 4px solid #fff;
     border-radius: 8px;
 }
-article p, article h3 {
+profile p, profile h3 {
     margin: 20px 10px;
 
 }
@@ -61,7 +61,7 @@ nav li {
 /* responsive styles: adapt to smaller screen sizes */
 @media screen and (max-width: 980px) {
 
-    article {
+    profile {
         grid-column: span 3;
         display: grid; /* nested grid */
         grid-template-columns: 1fr 1fr;
@@ -72,7 +72,7 @@ nav li {
 
 @media screen and (max-width: 760px) {
 
-    article, article.featured {
+    profile, profile.featured {
         
         display: block; 
         margin: 0px 20px;
