@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'quotes',
     'formdata',
     'restaurant',
-    'blog'
+    'blog',
+    'mini_fb'
 ]
 
 MIDDLEWARE = [
