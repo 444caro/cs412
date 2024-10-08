@@ -19,5 +19,18 @@
         </p>
         </div>
     </article>
+    <div>
+    <h2>Comments</h2>
+    <!-- Comments:
+    {{article.get_comments}} -->
+    {% for c in article.get_comments %}
+    <article>
+        <div>
+        <strong>by {{c.author}} at {{c.published}}</strong>
+        <p>
+        {{c.text}}
+        </div>
+    </article>
+    {% endfor %}
 </main>
 {% endblock %}
