@@ -1,8 +1,10 @@
 # mini_fb/views.py`
 # define the views for the mini_fb app`
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse
 from .models import *
+from .forms import CreateProfileForm
 
 # Create your views here.
 
@@ -19,3 +21,12 @@ class ShowProfilePageView(DetailView):
     template_name = 'mini_fb/show_profile.html'  # The template to use
     context_object_name = 'profile'  # The context variable name to access the profile in the template
     
+class CreateProfileView(CreateView):
+    '''The view to create a new profile.'''
+    model = Profile
+    form_class = CreateProfileForm
+    template_name = 'mini_fb/create_profile_form.html'
+
+    def get_success_url(self):
+        '''Return the URL to display the profile page after creation.'''
+        return reverse('show_profile', kwargs={'pk': self.object.pk})

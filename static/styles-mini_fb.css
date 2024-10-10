@@ -24,9 +24,15 @@ h2, h3 {
 }
 
 p {
+    color: darkolivegreen;
+    text-align: left;
+}
+
+h4{
     color: rgb(167, 208, 169);
     text-align: right;
 }
+
 footer{
     background: darkolivegreen;
     padding: 5px;
