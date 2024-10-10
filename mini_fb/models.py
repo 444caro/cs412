@@ -17,5 +17,15 @@ class Profile(models.Model):
     def __str__(self):
         '''return a string representation of the object'''
         return f'{self.firstName} {self.lastName}'
+    
+class StatusMessage(models.Model):
+    '''A model for status messages posted by users.'''
+    timestamp = models.DateTimeField(auto_now_add=True)
+    message = models.TextField(blank=False)
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
+
+    def __str__(self):
+        '''Return a string representation of the object.'''
+        return f'Status by {self.profile} at {self.timestamp}'
 
 
