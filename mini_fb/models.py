@@ -18,6 +18,10 @@ class Profile(models.Model):
         '''return a string representation of the object'''
         return f'{self.firstName} {self.lastName}'
     
+    def get_status_messages(self):
+        '''Return all status messages for this profile.'''
+        return self.statusmessage_set.all().order_by('-timestamp')
+    
 class StatusMessage(models.Model):
     '''A model for status messages posted by users.'''
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -27,5 +31,6 @@ class StatusMessage(models.Model):
     def __str__(self):
         '''Return a string representation of the object.'''
         return f'Status by {self.profile} at {self.timestamp}'
+    
 
 
