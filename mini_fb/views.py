@@ -35,7 +35,7 @@ class CreateStatusMessageView(CreateView):
     '''The view to create a new status message.'''
     model = StatusMessage
     fields = ['message']
-    template_name = 'mini_fb/create_status_message_form.html'
+    template_name = 'mini_fb/create_status_form.html'
 
     def get_success_url(self):
         '''Return the URL to display the profile page after creation.'''
