@@ -1,6 +1,7 @@
 # mini_fb/models.py
 # define the data objects that will be used in the blog application
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Profile(models.Model):
@@ -21,6 +22,9 @@ class Profile(models.Model):
     def get_status_messages(self):
         '''Return all status messages for this profile.'''
         return self.statusmessage_set.all().order_by('-timestamp')
+    def get_absolute_url(self):
+        '''Return the URL to display the profile.'''
+        return reverse('show_profile', kwargs={'pk': self.pk})
     
 class StatusMessage(models.Model):
     '''A model for status messages posted by users.'''
