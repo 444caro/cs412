@@ -1,6 +1,6 @@
 # mini_fb/views.py`
 # define the views for the mini_fb app`
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse
 from .models import *
@@ -30,3 +30,18 @@ class CreateProfileView(CreateView):
     def get_success_url(self):
         '''Return the URL to display the profile page after creation.'''
         return reverse('show_profile', kwargs={'pk': self.object.pk})
+
+class CreateStatusMessageView(CreateView):
+    '''The view to create a new status message.'''
+    model = StatusMessage
+    fields = ['message']
+    template_name = 'mini_fb/create_status_message_form.html'
+
+    def get_success_url(self):
+        '''Return the URL to display the profile page after creation.'''
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+
+    def form_valid(self, form):
+        '''Add the profile to the form data before setting the message profile.'''
+        form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
+        return super().form_valid(form)

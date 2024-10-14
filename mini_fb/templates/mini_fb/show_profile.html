@@ -30,6 +30,7 @@
             {% empty %}
                 <h3>No status messages yet.</h3>
             {% endfor %}
+            <a href="{% url 'create_status' profile.pk %}">Post a Status</a>
     </div>
     <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
 </main>

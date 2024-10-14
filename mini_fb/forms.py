@@ -1,5 +1,6 @@
 from django import forms
 from .models import Profile
+from .models import StatusMessage
 
 class CreateProfileForm(forms.ModelForm):
     class Meta:
@@ -11,4 +12,12 @@ class CreateProfileForm(forms.ModelForm):
             'city': 'City:',
             'email': 'Email Address:',
             'image_url': 'Profile Image URL:'
+        }
+        
+class CreateStatusMessageForm(forms.ModelForm):
+    class Meta:
+        model = StatusMessage
+        fields = ['message']
+        labels = {
+            'message': 'Status Message:'
         }
