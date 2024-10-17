@@ -4,8 +4,8 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import *
 import random
-from django.views.generic.edit import CreateView
-from .forms import CreateCommentForm, CreateArticleForm
+from django.views.generic.edit import CreateView, UpdateView
+from .forms import CreateCommentForm, CreateArticleForm, UpdateArticleForm
 from django.urls import reverse
 from typing import Any
 # Create your views here.
@@ -81,4 +81,16 @@ class CreateArticleView(CreateView):
         '''
         print(f'CreateArticleView: form.cleaned_data={form.cleaned_data}')
         # delegate work to the superclass version of this method
+        return super().form_valid(form)
+    
+class UpdateArticleView(UpdateView):
+    '''A view to update an Article and save it to the database.'''
+    form_class = UpdateArticleForm
+    template_name = "blog/update_article_form.html"
+    model = Article ## add this model and the QuerySet will automatically find instance by PK
+    def form_valid(self, form):
+        '''
+        Handle the form submission to create a new Article object.
+        '''
+        print(f'UpdateArticleView: form.cleaned_data={form.cleaned_data}')
         return super().form_valid(form)
