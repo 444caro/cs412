@@ -1,12 +1,10 @@
 <!-- templates/article.html -->
 {% extends 'blog/base.html' %}
 <h1>{{article.title}}</h1>
-<!-- scriptlet code to display the value of the variable `articles` 
-{{ articles }}
--->
 {% block content %}
 <main class="grid-container">
-    <article class = "featured">
+    
+    <article class="featured">
         {% if article.image_file.url %}
         <img src="{{article.image_file.url}}" alt="{{article.image_file.url}}">
         {% endif %}
@@ -21,6 +19,7 @@
     </article>
     <div>
     <h2>Comments</h2>
+    <h3><a href="{% url 'update_article' article.pk %}">Update Article</a></h3>
     <h3><a href="{% url 'create_comment' article.pk %}">Create a comment</a></h3>
     <!-- Comments:
     {{article.get_comments}} -->
@@ -30,9 +29,10 @@
         <strong>by {{c.author}} at {{c.published}}</strong>
         <p>
         {{c.text}}
+        <a href="{% url 'delete_comment' c.pk %}">delete</a> <!-- NEW -->
         </div>
     </article>
     {% endfor %}
-    </div>
+</div>
 </main>
 {% endblock %}

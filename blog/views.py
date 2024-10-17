@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import *
 import random
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import CreateCommentForm, CreateArticleForm, UpdateArticleForm
 from django.urls import reverse
 from typing import Any
@@ -94,3 +94,20 @@ class UpdateArticleView(UpdateView):
         '''
         print(f'UpdateArticleView: form.cleaned_data={form.cleaned_data}')
         return super().form_valid(form)
+    
+class DeleteCommentView(DeleteView):
+    '''A view to delete a comment and remove it from the database.'''
+    template_name = "blog/delete_comment_form.html"
+    model = Comment
+    context_object_name = 'comment'
+    def get_success_url(self):
+        '''Return a the URL to which we should be directed after the delete.'''
+        # get the pk for this comment
+        pk = self.kwargs.get('pk')
+        comment = Comment.objects.filter(pk=pk).first() # get one object from QuerySet
+        
+        # find the article to which this Comment is related by FK
+        article = comment.article
+        
+        # reverse to show the article page
+        return reverse('article', kwargs={'pk':article.pk})
