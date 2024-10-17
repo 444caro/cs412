@@ -1,6 +1,7 @@
 # blog/models.py
 # define the data objects that will be used in the blog application
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Article(models.Model):
@@ -15,6 +16,11 @@ class Article(models.Model):
     def __str__(self):
         '''return a string representation of the object'''
         return f'{self.title} by {self.author}'
+    
+    def get_absolute_url(self):
+        '''Return the URL to display this Article.'''
+        return reverse('article', kwargs={'pk':self.pk})
+
 
 class Comment(models.Model):
     '''Encapsulate the idea of a Comment on an Article.'''

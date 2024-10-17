@@ -10,4 +10,5 @@ urlpatterns=[
     path('article/<int:pk>', ArticlePageView.as_view(), name='article'), 
     path('create_comment', CreateCommentView.as_view(), name='create_comment'), ### FIRST (WITHOUT PK)
     path('article/<int:pk>/create_comment', CreateCommentView.as_view(), name='create_comment'), ### NEW
+    path('create_article', CreateArticleView.as_view(), name='create_article'),
 ]
