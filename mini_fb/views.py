@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse
 from .models import *
-from .forms import CreateProfileForm
+from .forms import *
 
 # Create your views here.
 
@@ -42,6 +42,15 @@ class CreateStatusMessageView(CreateView):
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
 
     def form_valid(self, form):
-        '''Add the profile to the form data before setting the message profile.'''
+        '''Add profile and handle file uploads.'''
+        sm = form.save(commit=False)
         form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
+        sm.save()
+        
+        # Handle file uploads
+        files = self.request.FILES.getlist('files')
+        for file in files:
+            image = Image(image_file=file, status_message=sm)
+            image.save()
+        
         return super().form_valid(form)
