@@ -1,3 +1,4 @@
+# mini_fb/forms.py
 from django import forms
 from .models import Profile
 from .models import StatusMessage
