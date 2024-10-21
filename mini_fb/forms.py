@@ -22,3 +22,14 @@ class CreateStatusMessageForm(forms.ModelForm):
         labels = {
             'message': 'Status Message:'
         }
+
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        # Exclude the first name and last name from being updated
+        fields = ['city', 'email', 'image_url']
+        labels = {
+            'city': 'City:',
+            'email': 'Email Address:',
+            'image_url': 'Profile Image URL:'
+        }
