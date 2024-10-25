@@ -38,6 +38,11 @@ class Profile(models.Model):
         if self != other:
             if not Friend.objects.filter(models.Q(profile1=self, profile2=other) | models.Q(profile1=other, profile2=self)).exists():
                 Friend.objects.create(profile1=self, profile2=other)
+    def get_friend_suggestions(self):
+        """Return a list of Profiles that are not currently friends."""
+        friends = self.get_friends()
+        suggestions = Profile.objects.exclude(pk=self.pk).exclude(pk__in=[friend.pk for friend in friends])
+        return suggestions
 
     
 class StatusMessage(models.Model):

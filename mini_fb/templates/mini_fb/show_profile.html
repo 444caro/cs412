@@ -37,6 +37,10 @@
         {% else %}
             <p>This profile has no friends yet.</p>
         {% endif %}
+        <br>
+        <a href="{% url 'friend_suggestions' object.pk %}">
+            <button>View Friend Suggestions</button>
+        </a>
     </div>
     <br><br>
     <div>
