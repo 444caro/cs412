@@ -41,22 +41,32 @@
         <a href="{% url 'friend_suggestions' object.pk %}">
             <button>View Friend Suggestions</button>
         </a>
+        <a href="{% url 'news_feed' object.pk %}">
+            <button>View News Feed</button>
+        </a>
     </div>
     <br><br>
     <div>
         <h2>Status Messages:</h2>
             {% for status in profile.get_status_messages %}
-                    <h3>{{ status.timestamp }}: {{ status.message }}</h3>
-                    <a href="{% url 'delete_status' status.pk %}">Delete</a>
-                    <a href="{% url 'update_status' status.pk %}">Update</a>
+                    <em>{{ status.timestamp }}:  </em>{{ status.message }} <br>
                     {% for img in status.get_images %}
                         <img src="{{ img.image_file.url }}" alt="Image for status message" style="max-width: 200px;">
-                        <br><br>
                     {% endfor %}
+                    <a href="{% url 'delete_status' status.pk %}">
+                        <button> Delete </button>
+                    </a>
+                    <a href="{% url 'update_status' status.pk %}">
+                        <button> Update </button>
+                    </a>
+                    <br><br>
             {% empty %}
                 <h3>No status messages yet.</h3>
             {% endfor %}
-            <a href="{% url 'create_status' profile.pk %}">Post a Status</a><br><br>
+            <br><br>
+            <a href="{% url 'create_status' profile.pk %}">
+                <button>Post a Status</button>
+            </a><br><br>
     </div>
     <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a> <br>
     <a href="{% url 'update_profile' profile.pk %}">Update Profile</a>

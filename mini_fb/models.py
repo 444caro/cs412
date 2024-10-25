@@ -43,6 +43,11 @@ class Profile(models.Model):
         friends = self.get_friends()
         suggestions = Profile.objects.exclude(pk=self.pk).exclude(pk__in=[friend.pk for friend in friends])
         return suggestions
+    
+    def get_news_feed(self):
+        """Return a queryset of all status messages by the profile and their friends."""
+        friends = self.get_friends()
+        return StatusMessage.objects.filter(profile__in=friends + [self]).order_by('-timestamp')
 
     
 class StatusMessage(models.Model):
