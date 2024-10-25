@@ -2,6 +2,7 @@
 # define the data objects that will be used in the blog application
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 # Create your models here.
 class Profile(models.Model):
@@ -15,16 +16,29 @@ class Profile(models.Model):
     city = models.TextField(blank = False)
     email = models.EmailField(blank = False)
     image_url = models.URLField(blank = False)
+    
     def __str__(self):
         '''return a string representation of the object'''
         return f'{self.firstName} {self.lastName}'
+    def get_absolute_url(self):
+        '''Return the URL to display the profile.'''
+        return reverse('show_profile', kwargs={'pk': self.pk})
     
     def get_status_messages(self):
         '''Return all status messages for this profile.'''
         return self.statusmessage_set.all().order_by('-timestamp')
-    def get_absolute_url(self):
-        '''Return the URL to display the profile.'''
-        return reverse('show_profile', kwargs={'pk': self.pk})
+    
+    def get_friends(self):
+        """Return a list of all friends for this profile."""
+        friends = Friend.objects.filter(models.Q(profile1=self) | models.Q(profile2=self))
+        friends_list = [friend.profile1 if friend.profile2 == self else friend.profile2 for friend in friends]
+        return friends_list
+    def add_friend(self, other):
+        """Add a friend to the profile, avoiding duplicates and self-friending."""
+        if self != other:
+            if not Friend.objects.filter(models.Q(profile1=self, profile2=other) | models.Q(profile1=other, profile2=self)).exists():
+                Friend.objects.create(profile1=self, profile2=other)
+
     
 class StatusMessage(models.Model):
     '''A model for status messages posted by users.'''
@@ -46,3 +60,13 @@ class Image(models.Model):
 
     def __str__(self):
         return f'Image for {self.status_message} uploaded at {self.uploaded_at}'
+    
+class Friend(models.Model):
+    profile1 = models.ForeignKey('Profile', related_name='profile1', on_delete=models.CASCADE)
+    profile2 = models.ForeignKey('Profile', related_name='profile2', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.profile1} & {self.profile2}'
+    
+
