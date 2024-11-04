@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+from django.contrib.auth.views import LoginView, LogoutView
 # Create your views here.
 
 # class based view 
@@ -60,8 +61,8 @@ class CreateStatusMessageView(CreateView, LoginRequiredMixin):
 
     def form_valid(self, form):
         '''Add profile and handle file uploads.'''
+        form.instance.profile = self.request.user.profile
         sm = form.save(commit=False)
-        form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
         sm.save()
         
         # Handle file uploads
@@ -78,7 +79,7 @@ class UpdateProfileView(UpdateView, LoginRequiredMixin):
     template_name = 'mini_fb/update_profile_form.html'
     def get_object(self):
         '''Get the object to update.'''
-        return get_object_or_404(Profile, user=self.request.user)
+        return self.request.user.profile
     
 class DeleteStatusMessageView(DeleteView, LoginRequiredMixin):
     model = StatusMessage
@@ -87,6 +88,8 @@ class DeleteStatusMessageView(DeleteView, LoginRequiredMixin):
 
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+    def test_func(self):
+        return self.request.user == self.get_object().profile.user
  
 class UpdateStatusMessageView(UpdateView, LoginRequiredMixin):
     model = StatusMessage
@@ -125,3 +128,8 @@ class ShowNewsFeedView(DetailView):
         context = super().get_context_data(**kwargs)
         context['news_feed'] = self.object.get_news_feed()
         return context
+    
+class LoginUserView(LoginView):
+    template_name = 'mini_fb/login.html'
+class LogoutUserView(LogoutView):
+    template_name = 'mini_fb/logged_out.html'
