@@ -6,7 +6,7 @@
 <main class="grid-container">
     {% for p in profiles %}
     <profile>
-        <a href="{% url 'show_profile' p.pk %}">
+        <a href="{% url 'show_profile'  %}">
         <img src="{{p.image_url}}" alt="{{p.image_url}}">
         <div>
         <h2>{{p.firstName}}  {{p.lastName}}</h2>

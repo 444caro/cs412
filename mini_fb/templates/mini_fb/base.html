@@ -10,7 +10,11 @@
         <header>
             <h1>Mini Facebook</h1>
             {% if user.is_authenticated %}
-                <p>Welcome, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a></p>
+                <h4>Welcome, {{ user.username }}  </h4>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
             {% else %}
                 <a href="{% url 'login' %}">Login</a>
             {% endif %}

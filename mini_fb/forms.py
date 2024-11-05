@@ -2,6 +2,7 @@
 from django import forms
 from .models import Profile
 from .models import StatusMessage
+from django.contrib.auth.forms import UserCreationForm
 
 class CreateProfileForm(forms.ModelForm):
     class Meta:
@@ -14,6 +15,7 @@ class CreateProfileForm(forms.ModelForm):
             'email': 'Email Address:',
             'image_url': 'Profile Image URL:'
         }
+
         
 class CreateStatusMessageForm(forms.ModelForm):
     class Meta:

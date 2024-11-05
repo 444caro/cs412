@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
+
 # Create your views here.
 
 # class based view 
@@ -19,11 +20,19 @@ class ShowAllProfilesView(ListView):
     template_name = 'mini_fb/show_all_profiles.html' #the template to use
     context_object_name = 'profiles' #model describes one profile, so we use the plural form for the context variable 
     
-class ShowProfilePageView(DetailView):
+class ShowProfilePageView(DetailView, LoginRequiredMixin):
     """The view to show a profile page for a single user."""
     model = Profile  # The model to display
     template_name = 'mini_fb/show_profile.html'  # The template to use
     context_object_name = 'profile'  # The context variable name to access the profile in the template
+    def get_object(self):
+        '''Get the object to display.'''
+        return get_object_or_404(Profile, user=self.request.user)
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(reverse('login'))
+        return super().get(request, *args, **kwargs)
     
 class CreateProfileView(CreateView):
     '''The view to create a new profile.'''
@@ -40,14 +49,15 @@ class CreateProfileView(CreateView):
         user_form = UserCreationForm(self.request.POST)
         if user_form.is_valid():
             user = user_form.save()
-            login(self.request, user)
             form.instance.user = user
+            profile = form.save()
+            login(self.request, user)
             return super().form_valid(form)
         else:
             return self.form_invalid(form)
     def get_success_url(self):
         '''Return the URL to display the profile page after creation.'''
-        return reverse('show_profile', kwargs={'pk': self.object.pk})
+        return reverse('show_profile')
 
 class CreateStatusMessageView(CreateView, LoginRequiredMixin):
     '''The view to create a new status message.'''
@@ -57,7 +67,7 @@ class CreateStatusMessageView(CreateView, LoginRequiredMixin):
 
     def get_success_url(self):
         '''Return the URL to display the profile page after creation.'''
-        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+        return reverse('show_profile')
 
     def form_valid(self, form):
         '''Add profile and handle file uploads.'''
@@ -79,7 +89,7 @@ class UpdateProfileView(UpdateView, LoginRequiredMixin):
     template_name = 'mini_fb/update_profile_form.html'
     def get_object(self):
         '''Get the object to update.'''
-        return self.request.user.profile
+        return get_object_or_404(Profile, user=self.request.user)
     
 class DeleteStatusMessageView(DeleteView, LoginRequiredMixin):
     model = StatusMessage
@@ -87,7 +97,7 @@ class DeleteStatusMessageView(DeleteView, LoginRequiredMixin):
     context_object_name = 'status_message'
 
     def get_success_url(self):
-        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+        return reverse('show_profile')
     def test_func(self):
         return self.request.user == self.get_object().profile.user
  
@@ -98,7 +108,7 @@ class UpdateStatusMessageView(UpdateView, LoginRequiredMixin):
 
     # Redirect to profile page after updating
     def get_success_url(self):
-        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+        return reverse('show_profile')
     
 class CreateFriendView(View, LoginRequiredMixin):
     """View to handle adding a friend."""
@@ -106,7 +116,7 @@ class CreateFriendView(View, LoginRequiredMixin):
         profile = get_object_or_404(Profile, user = request.user)
         other_profile = get_object_or_404(Profile, pk=self.kwargs['other_pk'])
         profile.add_friend(other_profile)
-        return redirect('show_profile', pk=profile.pk)
+        return redirect('show_profile')
 
 class ShowFriendSuggestionsView(DetailView, LoginRequiredMixin):
     model = Profile
@@ -123,7 +133,8 @@ class ShowNewsFeedView(DetailView):
     model = Profile
     template_name = 'mini_fb/news_feed.html'
     context_object_name = 'profile'
-
+    def get_object(self):
+        return get_object_or_404(Profile, user=self.request.user)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['news_feed'] = self.object.get_news_feed()

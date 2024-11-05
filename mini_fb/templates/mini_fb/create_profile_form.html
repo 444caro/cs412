@@ -4,6 +4,7 @@
 <h2>Create a New Profile</h2>
 <form method="POST">
     {% csrf_token %}
+    {{user_form.as_p}}
     {{ form.as_p }}
     <button type="submit">Create Profile</button>
 </form>

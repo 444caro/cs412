@@ -12,8 +12,7 @@ class Profile(models.Model):
     This Profile model will need to include the following data attributes: 
     first name, last name, city, email address, and a profile image url.
     '''
-    #user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     firstName = models.TextField(blank = False)
     lastName = models.TextField(blank = False)
     city = models.TextField(blank = False)
