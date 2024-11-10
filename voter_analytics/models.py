@@ -1,6 +1,7 @@
 # voter_analytics/models.py
 import csv
 from django.db import models
+from django.urls import reverse
 
 class Voter(models.Model):
     '''Model for a registered voter'''
@@ -25,6 +26,10 @@ class Voter(models.Model):
         '''String representation of a voter'''
         return f"{self.first_name} {self.last_name} ({self.party_affiliation})"
 
+    def get_absolute_url(self):
+        '''URL for viewing a voter'''
+        return reverse('voter_detail', args=[str(self.id)])
+    
     @classmethod
     def load_data(cls, file_path='newton_voters.csv'):
         '''Load voter data from a CSV file'''

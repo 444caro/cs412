@@ -1,0 +1,38 @@
+<!--   voter_analytics/templates/voter_analytics/voter_list   -->
+{% extends 'mini_fb/base.html' %}
+{% block content %}
+<h2>Voter List</h2>
+  
+<form method="get">
+  {{ filter_form.as_p }}
+  <button type="submit">Filter</button>
+</form>
+
+<ul>
+  {% for voter in object_list %}
+    <li>
+      <a href="{% url 'voter' voter.id %}">
+        {{ voter.first_name }} {{ voter.last_name }}
+      </a>  
+      {{ voter.street_number }} {{ voter.street_name }}, {{ voter.zip_code }}
+      (DOB: {{ voter.date_of_birth }}, Party: {{ voter.party_affiliation }}, Score: {{ voter.voter_score }})
+    </li>
+  {% endfor %}
+</ul>
+
+{% if is_paginated %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page=1{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}">&laquo; first</a>
+      <a href="?page={{ page_obj.previous_page_number }}{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}">previous</a>
+    {% endif %}
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}">next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}">last &raquo;</a>
+    {% endif %}
+  </div>
+{% endif %}
+{%endblock%}

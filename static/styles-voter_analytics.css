@@ -1,0 +1,79 @@
+/* This CSS was derived from NetNinja's multi-column grid example. */
+
+body {
+    margin: 30px;
+    background: rgb(167, 208, 169);
+    color: darkolivegreen;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+form{
+    margin: 10px;
+    padding: 10px;
+    background: rgb(167, 208, 169);
+    border: 1px solid darkolivegreen;
+    border-radius: 10px;
+}
+
+ul, li {
+    padding: 0px;
+    list-style-type: none;
+}
+
+h1{
+    color: rgb(167, 208, 169);
+    text-align: center;
+    padding-top: 20px;
+    font-size: 3em;
+}
+
+h2, h3 {
+    color: darkolivegreen;
+}
+
+p {
+    color: darkolivegreen;
+    text-align: left;
+}
+
+h4{
+    color: rgb(167, 208, 169);
+    text-align: right;
+}
+
+footer{
+    background: darkolivegreen;
+    padding: 5px;
+}
+
+header {
+    max-width: 1200px;
+    margin: 40px auto;
+    background: darkolivegreen;
+    color: rgb(167, 208, 169);
+    border-bottom: 1px solid darkolivegreen;
+}
+
+
+nav li {
+    display: inline;
+}
+/* responsive styles: adapt to smaller screen sizes */
+@media screen and (max-width: 980px) {
+
+    profile {
+        grid-column: span 3;
+        display: grid; /* nested grid */
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 760px) {
+
+    profile, profile.featured {
+        
+        display: block; 
+        margin: 0px 20px;
+    }
+}
