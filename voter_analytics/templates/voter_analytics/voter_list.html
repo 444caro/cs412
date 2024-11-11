@@ -1,13 +1,13 @@
 <!--   voter_analytics/templates/voter_analytics/voter_list   -->
 {% extends 'voter_analytics/base.html' %}
 {% block content %}
+<a href="{% url 'graphs' %}">View Graphs</a>
 <h2>Voter List</h2>
   
 <form method="get">
   {{ filter_form.as_p }}
   <button type="submit">Filter</button>
 </form>
-
 <ul>
   {% for voter in object_list %}
     <li>

@@ -1,6 +1,7 @@
 <!--   voter_analytics/templates/voter_analytics/graphs.html   -->
 {% extends 'voter_analytics/base.html' %}
 {% block content %}
+<a href="{% url 'voters' %}">Back to Voter List</a>
 <h2>Graphs</h2>
     <!-- Filter Form -->
     <form method="get" action="{% url 'graphs' %}">
@@ -10,17 +11,17 @@
 
     <!-- Display Graphs -->
     <div>
-        <h2>Distribution of Voters by Birth Year</h2>
+        <h3>Distribution of Voters by Birth Year</h3>
         <div>{{ birth_year_histogram|safe }}</div>
     </div>
 
     <div>
-        <h2>Distribution of Voters by Party Affiliation</h2>
+        <h3>Distribution of Voters by Party Affiliation</h3>
         <div>{{ party_affiliation_pie|safe }}</div>
     </div>
 
     <div>
-        <h2>Voter Participation by Election</h2>
+        <h3>Voter Participation by Election</h3>
         <div>{{ election_participation_histogram|safe }}</div>
     </div>
 {% endblock %}

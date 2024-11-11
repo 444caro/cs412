@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Voter
 from .forms import VoterFilterForm
+import pandas as pd
 import plotly.express as px
 from plotly.io import to_html
 
