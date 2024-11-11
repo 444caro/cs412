@@ -1,0 +1,26 @@
+<!--   voter_analytics/templates/voter_analytics/graphs.html   -->
+{% extends 'voter_analytics/base.html' %}
+{% block content %}
+<h2>Graphs</h2>
+    <!-- Filter Form -->
+    <form method="get" action="{% url 'graphs' %}">
+        {{ form.as_p }}
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Display Graphs -->
+    <div>
+        <h2>Distribution of Voters by Birth Year</h2>
+        <div>{{ birth_year_histogram|safe }}</div>
+    </div>
+
+    <div>
+        <h2>Distribution of Voters by Party Affiliation</h2>
+        <div>{{ party_affiliation_pie|safe }}</div>
+    </div>
+
+    <div>
+        <h2>Voter Participation by Election</h2>
+        <div>{{ election_participation_histogram|safe }}</div>
+    </div>
+{% endblock %}
