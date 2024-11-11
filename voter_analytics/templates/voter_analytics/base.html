@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="{% static 'styles-voter_analytics.css' %}">
     </head>
     <body>
+        <div class="topnav">
+            <a href="{% url 'voters' %}">Voter List</a>
+            <a href="{% url 'graphs' %}">Graphs</a>
+        </div>
         <header>
             <h1> Voter Analytics </h1>
         </header>
@@ -14,5 +18,8 @@
             {% endblock %}   
         </div>
     </body>
+    <footer>
+        <h4>Data from registered voters in the town of Newton, MA</h4>
+    </footer>
 </html>
         

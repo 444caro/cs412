@@ -23,10 +23,18 @@ h1{
     text-align: center;
     padding-top: 20px;
     font-size: 3em;
+    padding-bottom:0px;
 }
 
-h2, h3 {
+h2 {
     color: darkolivegreen;
+    font-size: 2em;
+    margin-top: 0px;
+    padding-left: 40px;
+}
+h3 {
+    color: darkolivegreen;
+    font-size: 1.5em;
 }
 
 p {
@@ -37,16 +45,21 @@ p {
 h4{
     color: rgb(167, 208, 169);
     text-align: right;
+    padding-right: 30px;
+    padding-top: 0px;
+    padding-bottom:0px;
 }
 
 footer{
     background: darkolivegreen;
-    padding: 5px;
+    padding: 1px;
+    margin-top: 30px;
 }
 
 header {
     max-width: 1200px;
     margin: 40px auto;
+    margin-top: 0px;
     background: darkolivegreen;
     color: rgb(167, 208, 169);
     border-bottom: 1px solid darkolivegreen;
@@ -55,3 +68,26 @@ header {
 nav li {
     display: inline;
 }
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: darkolivegreen;
+    overflow: hidden;
+
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: rgb(167, 208, 169);
+    text-align: center;
+    padding: 20px 50px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    color: black;
+  }
+  
+  
