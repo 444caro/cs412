@@ -33,9 +33,9 @@ class Vase(models.Model):
 
 
 
-class Profile(models.Model):
+class BBProfile(models.Model):
     '''
-    Profile is a model for the data attributes of individual bloomboard users.
+    BBProfile is a model for the data attributes of individual bloomboard users.
     '''
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     firstName = models.TextField(blank = False)
@@ -51,7 +51,7 @@ class Profile(models.Model):
       
 class Post(models.Model):
     '''A model for Posts posted by users.'''
-    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    profile = models.ForeignKey('BBProfile', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     caption = models.TextField(blank=False)
     image = models.URLField(blank = False)
@@ -64,7 +64,7 @@ class Post(models.Model):
 class Comment(models.Model):
     '''A model for comments on posts.'''
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
-    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    profile = models.ForeignKey('BBProfile', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     message = models.TextField(blank=False)
     
