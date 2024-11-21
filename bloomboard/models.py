@@ -11,7 +11,7 @@ class Flower(models.Model):
     USE_TYPE_CHOICES = [('filler','Filler'),('focal','Focal'), ('greens','Greens')]
     use_type = models.CharField(max_length=10, choices=USE_TYPE_CHOICES)
     price_per_stem = models.DecimalField(max_digits=5, decimal_places=2)
-    image_url = models.URLField(blank = False)
+    image_url = models.URLField(blank = False)  
     
     def __str__(self):
         '''Return a string representation of the object.'''
@@ -24,7 +24,8 @@ class Vase(models.Model):
     height = models.DecimalField(max_digits=5, decimal_places=2) # height of the vase in inches
     color = models.CharField(max_length=100) # color of the vase
     price = models.DecimalField(max_digits=5, decimal_places=2) # price of the vase
-    
+    image_url = models.URLField(blank = True) # image of the vase
+                                
     def __str__(self):
         '''Return a string representation of the object.'''
         return f'{self.size} {self.color} Vase'
