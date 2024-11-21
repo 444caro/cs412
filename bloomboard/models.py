@@ -42,7 +42,7 @@ class BBProfile(models.Model):
     firstName = models.TextField(blank = False)
     lastName = models.TextField(blank = False)
     city = models.TextField(blank = False)
-    image_url = models.URLField(blank = False)
+    image_url = models.URLField(blank = True)
     years_experience = models.IntegerField(blank = False)
     # `shop` (Foreign Key to Shop)
  
