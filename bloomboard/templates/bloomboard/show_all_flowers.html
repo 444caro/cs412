@@ -1,0 +1,18 @@
+<!-- templates/bloomboard/flowers.html -->
+{% extends 'bloomboard/base.html' %}
+<h1>Showing all Flowers</h1>
+<!-- display all flowers -->
+{% block content %}
+<main class="grid-container">
+    {% for f in flowers %}
+    <flower>
+        <!--   TODO: MAKE THIS A SEE ARRANGEMENTS USING THIS FLOWER PAGE <a href="{% url 'show_profile'  %}"> -->
+        <img src="{{f.image_url}}" alt="{{f.image_url}}">
+        <div>
+        <h2>{{f.name}} </h2>
+        </div>
+        <!--</a>-->
+    </flower>
+    {% endfor %}
+</main>
+{% endblock %}

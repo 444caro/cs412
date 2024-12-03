@@ -1,0 +1,30 @@
+<!-- bloomboard/templates/bloomboard/show_profile.html -->
+{% extends 'bloomboard/base.html' %}
+
+{% block content %}
+<main>
+    <h2>{{ profile.firstName }} {{ profile.lastName }}'s Profile:</h2>
+    <img src="{{ profile.image_url }}" alt="{{ profile.firstName }}'s Profile Image" style="max-width: 300px; border-radius: 10px;">
+    <table>
+        <tr>
+            <th>First Name:</th>
+            <td>{{ profile.firstName }}</td>
+        </tr>
+        <tr>
+            <th>Last Name:</th>
+            <td>{{ profile.lastName }}</td>
+        </tr>
+        <tr>
+            <th>City:</th>
+            <td>{{ profile.city }}</td>
+        </tr>
+        <tr>
+            <th>Years of Experience:</th>
+            <td>{{ profile.yearsExperience }}</td>
+        </tr>
+    </table> <br> <br>
+<!--        TODO: ARRANGEMENTS BY THIS USER SHOULD ALSO BE DISPLAYED      -->
+    <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a> <br>
+    <a href="{% url 'update_profile'  %}">Update Profile</a>
+</main>
+{% endblock %}
