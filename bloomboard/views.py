@@ -10,6 +10,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 
+# show all flowers
+class ShowAllFlowersView(ListView):
+    '''the view to show all flowers'''
+    model = Flower #the model to display
+    template_name = 'bloomboard/show_all_flowers.html' #the template to use
+    context_object_name = 'flowers' #model describes one flower, so we use the plural form for the context variable
+    #note to self, add feature to see arrangements that use this flower, w the ability to click on the arrangement to see the arrangement post
+
 ##        PROFILE VIEWS         ##
 # show all profiles
 class ShowAllProfilesView(ListView):
