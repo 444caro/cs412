@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 
+##        FLOWER VIEWS         ##
 # show all flowers
 class ShowAllFlowersView(ListView):
     '''the view to show all flowers'''
@@ -17,6 +18,21 @@ class ShowAllFlowersView(ListView):
     template_name = 'bloomboard/show_all_flowers.html' #the template to use
     context_object_name = 'flowers' #model describes one flower, so we use the plural form for the context variable
     #note to self, add feature to see arrangements that use this flower, w the ability to click on the arrangement to see the arrangement post
+
+# flower detail view 
+class ShowFlowerView(DetailView):
+    """The view to show a profile page for a single flower."""
+    model = Flower  # The model to display
+    template_name = 'bloomboard/show_flower.html'  # The template to use
+    context_object_name = 'flower'  # The context variable name to access the flower in the template
+
+    def get_absolute_url(self):
+        '''Return the URL to display this flower.'''
+        return reverse('show_flower', kwargs={'pk':self.pk})
+
+
+
+
 
 ##        PROFILE VIEWS         ##
 # show all profiles

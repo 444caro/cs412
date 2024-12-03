@@ -9,22 +9,23 @@
     <body>
         <header>
             <h1>BloomBoard</h1>
-            {% if user.is_authenticated %}
-                <h4>Welcome, {{ user.username }}  </h4>
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}">Login</a>
-            {% endif %}
         </header>
     
     {% block content %}
     {% endblock %}    
-    <a href="{% url 'create_profile' %}">Create a New Profile</a> 
+
     <footer>
-        <h4>Thanks for visiting BloomBoard!   </h4>
+        {% if user.is_authenticated %}
+        <h6 style="text-align: left;">Hello, {{ bbprofile.firstName }}  </h6>
+
+        <form method="post" action="{% url 'logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+        <h6>Thanks for visiting BloomBoard!   </h6>
     </footer>
     </body>
 </html>

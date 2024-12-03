@@ -11,6 +11,7 @@ urlpatterns=[
     path('create_profile/', views.CreateProfileView.as_view(), name='create_profile'),
     path('profile/<int:pk>/update/', views.UpdateProfileView.as_view(), name='update_profile'),
     path('show_all_flowers/', views.ShowAllFlowersView.as_view(), name='show_all_flowers'),
+    path('flower/<int:pk>/', views.ShowFlowerView.as_view(), name='show_flower'),
     path('login/', auth_views.LoginView.as_view(template_name='bloomboard/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='bloomboard/logged_out.html'), name='logout'),
 ]

@@ -54,6 +54,10 @@ class BBProfile(models.Model):
         '''Return the URL to display this BBProfile.'''
         return reverse('show_profile', kwargs={'pk':self.pk})
     
+    def get_first_name(self):
+        '''Return the first name of the user.'''
+        return self.firstName
+    
       
 class Post(models.Model):
     '''A model for Posts posted by users.'''

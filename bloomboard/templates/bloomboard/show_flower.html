@@ -1,0 +1,23 @@
+<!-- bloomboard/templates/bloomboard/show_flower.html -->
+{% extends 'bloomboard/base.html' %}
+
+{% block content %}
+<main>
+    <h2>{{ flower.name }} </h2>
+    <img src="{{ flower.image_url }}" alt="{{ flower.name }}'s Image" style="max-width: 500px; border-radius: 10px;">
+    <table>
+        <tr>
+            <th>Typical Usage:</th>
+            <td>{{ flower.use_type }}</td>
+        </tr>
+        <tr>
+            <th>Average Price Per Stem:</th>
+            <td>${{ flower.price_per_stem }}</td>
+        </tr>
+        
+    </table> <br> <br>
+<!--        TODO: ARRANGEMENTS USING THIS FLOWER SHOULD ALSO BE DISPLAYED      -->
+    <a href="{% url 'show_all_flowers' %}">Back to All Flowers</a> 
+
+</main>
+{% endblock %}

@@ -1,15 +1,17 @@
-<!-- templates/bloomboard/flowers.html -->
+<!-- templates/bloomboard/show_all_flowers.html -->
 {% extends 'bloomboard/base.html' %}
-<h1>Showing all Flowers</h1>
 <!-- display all flowers -->
 {% block content %}
+<h5>Showing all Flowers</h5>
 <main class="flower-grid">
     {% for f in flowers %}
     <div class="flower">
+        <a href="{% url 'show_flower' f.id %}">
         <img src="{{ f.image_url }}" alt="{{ f.name }}">
         <div>
-            <h2>{{ f.name }}</h2>
+            <h4>{{ f.name }}</h4>
         </div>
+        </a>
     </div>
     {% endfor %}
 </main>
