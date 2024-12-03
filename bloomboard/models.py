@@ -49,6 +49,11 @@ class BBProfile(models.Model):
     def __str__(self):
         '''return a string representation of the object'''
         return f'{self.firstName} {self.lastName}'
+
+    def get_absolute_url(self):
+        '''Return the URL to display this BBProfile.'''
+        return reverse('show_profile', kwargs={'pk':self.pk})
+    
       
 class Post(models.Model):
     '''A model for Posts posted by users.'''

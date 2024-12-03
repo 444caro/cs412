@@ -3,24 +3,24 @@
 
 {% block content %}
 <main>
-    <h2>{{ profile.firstName }} {{ profile.lastName }}'s Profile:</h2>
-    <img src="{{ profile.image_url }}" alt="{{ profile.firstName }}'s Profile Image" style="max-width: 300px; border-radius: 10px;">
+    <h2>{{ bbprofile.firstName }} {{ bbprofile.lastName }}'s Profile:</h2>
+    <img src="{{ bbprofile.image_url }}" alt="{{ bbprofile.firstName }}'s Profile Image" style="max-width: 300px; border-radius: 10px;">
     <table>
         <tr>
             <th>First Name:</th>
-            <td>{{ profile.firstName }}</td>
+            <td>{{ bbprofile.firstName }}</td>
         </tr>
         <tr>
             <th>Last Name:</th>
-            <td>{{ profile.lastName }}</td>
+            <td>{{ bbprofile.lastName }}</td>
         </tr>
         <tr>
             <th>City:</th>
-            <td>{{ profile.city }}</td>
+            <td>{{ bbprofile.city }}</td>
         </tr>
         <tr>
             <th>Years of Experience:</th>
-            <td>{{ profile.yearsExperience }}</td>
+            <td>{{ bbprofile.years_experience }}</td>
         </tr>
     </table> <br> <br>
 <!--        TODO: ARRANGEMENTS BY THIS USER SHOULD ALSO BE DISPLAYED      -->

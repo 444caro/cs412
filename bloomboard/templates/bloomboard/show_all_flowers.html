@@ -3,16 +3,14 @@
 <h1>Showing all Flowers</h1>
 <!-- display all flowers -->
 {% block content %}
-<main class="grid-container">
+<main class="flower-grid">
     {% for f in flowers %}
-    <flower>
-        <!--   TODO: MAKE THIS A SEE ARRANGEMENTS USING THIS FLOWER PAGE <a href="{% url 'show_profile'  %}"> -->
-        <img src="{{f.image_url}}" alt="{{f.image_url}}">
+    <div class="flower">
+        <img src="{{ f.image_url }}" alt="{{ f.name }}">
         <div>
-        <h2>{{f.name}} </h2>
+            <h2>{{ f.name }}</h2>
         </div>
-        <!--</a>-->
-    </flower>
+    </div>
     {% endfor %}
 </main>
 {% endblock %}

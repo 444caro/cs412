@@ -32,9 +32,11 @@ class ShowProfilePageView(DetailView):
     model = BBProfile  # The model to display
     template_name = 'bloomboard/show_profile.html'  # The template to use
     context_object_name = 'bbprofile'  # The context variable name to access the profile in the template
-    def get_object(self):
-        '''Get the object to display.'''
-        return get_object_or_404(BBProfile, user=self.request.user)
+
+    
+    def get_absolute_url(self):
+        '''Return the URL to display this BBProfile.'''
+        return reverse('show_profile', kwargs={'pk':self.pk})
 
 
 # create profile view

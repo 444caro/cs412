@@ -3,17 +3,17 @@
 <h1>Showing all Profiles</h1>
 <!-- display all profiles -->
 {% block content %}
-<main class="grid-container">
-    {% for p in profiles %}
-    <profile>
-        <a href="{% url 'show_profile'  %}">
-        <img src="{{p.image_url}}" alt="{{p.image_url}}">
-        <div>
-        <h2>{{p.firstName}}  {{p.lastName}}</h2>
-        <strong>{{p.city}}</strong>
-        </div>
+<main class="profiles-grid-container">
+    {% for p in bbprofiles %}
+    <div class="bbprofile">
+        <a href="{% url 'show_profile' p.id %}">
+            <img src="{{ p.image_url }}" alt="{{ p.firstName }} {{ p.lastName }}">
+            <div>
+                <h2>{{ p.firstName }} {{ p.lastName }}</h2>
+                <strong>{{ p.city }}</strong>
+            </div>
         </a>
-    </profile>
+    </div>
     {% endfor %}
 </main>
 {% endblock %}
