@@ -6,6 +6,8 @@ from .models import *
 # Register your models here.
 admin.site.register(Flower)
 admin.site.register(Vase)
+admin.site.register(Arrangement)
+admin.site.register(FlowerUsage)
 admin.site.register(BBProfile)
 admin.site.register(Post)
 admin.site.register(Comment)

@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+
 class Flower(models.Model):
     ''' A model to represent a flower.'''
     name = models.CharField(max_length=100) # name of the flower
@@ -59,13 +60,50 @@ class BBProfile(models.Model):
         return self.firstName
     
       
+class Arrangement(models.Model):
+    '''A model for arrangements created by users.'''
+    profile = models.ForeignKey('BBProfile', on_delete=models.CASCADE)  # the user who created the arrangement
+    occassion = models.TextField(blank=True) # occassion for the arrangement
+    image = models.URLField(blank = False)
+    vase = models.ForeignKey('Vase', on_delete=models.CASCADE)
+
+    def __str__(self):
+        '''Return a string representation of the object.'''
+        return f'Arrangement by {self.profile}'
+
+    def get_all_flowers(self):
+        '''Return all flowers and their quantities in the arrangement.'''
+        return self.flower_usages.values('flower__name', 'quantity')
+
+    def calculate_price(self):
+        '''Calculate the total price of the arrangement.'''
+        flower_cost = sum(
+            usage.quantity * usage.flower.price_per_stem
+            for usage in self.flower_usages.all()
+        )
+        return flower_cost + self.vase.price
+
+class FlowerUsage(models.Model):
+    '''A model to represent the usage of a flower in an arrangement.'''
+    arrangement = models.ForeignKey('Arrangement', on_delete=models.CASCADE, related_name='flower_usages')
+    flower = models.ForeignKey('Flower', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f'{self.quantity} x {self.flower.name}'
+    
+
+      
+      
+      
+      
 class Post(models.Model):
     '''A model for Posts posted by users.'''
     profile = models.ForeignKey('BBProfile', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     caption = models.TextField(blank=False)
     image = models.URLField(blank = False)
-    # arrangement recipe, figure out later 
+    arrangement = models.ForeignKey('Arrangement', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         '''Return a string representation of the object.'''
