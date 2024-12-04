@@ -34,7 +34,6 @@ class Vase(models.Model):
 
 
 
-
 class BBProfile(models.Model):
     '''
     BBProfile is a model for the data attributes of individual bloomboard users.
@@ -64,8 +63,10 @@ class Arrangement(models.Model):
     '''A model for arrangements created by users.'''
     profile = models.ForeignKey('BBProfile', on_delete=models.CASCADE)  # the user who created the arrangement
     occassion = models.TextField(blank=True) # occassion for the arrangement
+    type = models.TextField(blank=True) # type of arrangement i.e., wrapped bouquet, handtied bouquet, centerpiece, vase, urn, funeral spray, etc.
     image = models.URLField(blank = False)
-    vase = models.ForeignKey('Vase', on_delete=models.CASCADE)
+    vase = models.ForeignKey('Vase', on_delete=models.CASCADE, blank = True)
+    
 
     def __str__(self):
         '''Return a string representation of the object.'''
