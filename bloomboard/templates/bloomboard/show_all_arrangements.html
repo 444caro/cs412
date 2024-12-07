@@ -1,0 +1,19 @@
+<!-- bloomboard/templates/bloomboard/show_all_arrangements.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>All Arrangements</h1>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+    {% for arrangement in arrangements %}
+    <div style="text-align: center; max-width: 200px;">
+        <!-- Clickable image linking to the detail view -->
+        <a href="{% url 'show_arrangement' arrangement.pk %}">
+            <img src="{{ arrangement.image }}" alt="Arrangement Image" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

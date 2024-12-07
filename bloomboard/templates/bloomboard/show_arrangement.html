@@ -1,0 +1,24 @@
+<!-- bloomboard/templates/bloomboard/show_arrangement.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Arrangement Details</h1>
+
+<!-- Display arrangement image -->
+<img src="{{ arrangement.image }}" alt="Arrangement Image" style="max-width: 100%; height: auto;">
+
+<!-- Display creator's profile link -->
+<p>Created by: <a href="{{ arrangement.profile.get_absolute_url }}">{{ arrangement.profile }}</a></p>
+
+<!-- Display total price -->
+<p>Total Price: ${{ total_price }}</p>
+
+<!-- Display flower usage recipe -->
+<h2>Flower Usage</h2>
+<ul>
+    {% for flower in flower_usage %}
+    <li>{{ flower.flower__name }}: {{ flower.quantity }} stems</li>
+    {% endfor %}
+</ul>
+{% endblock %}

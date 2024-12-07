@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 
-##        FLOWER VIEWS         ##
+##        FLOWER + ARRANGEMENT VIEWS         ##
 # show all flowers
 class ShowAllFlowersView(ListView):
     '''the view to show all flowers'''
@@ -30,7 +30,30 @@ class ShowFlowerView(DetailView):
         '''Return the URL to display this flower.'''
         return reverse('show_flower', kwargs={'pk':self.pk})
 
+# arrangement list view
+class ShowAllArrangementsView(ListView):
+    '''the view to show all arrangements'''
+    model = Arrangement #the model to display
+    template_name = 'bloomboard/show_all_arrangements.html' #the template to use
+    context_object_name = 'arrangements' #model describes one arrangement, so we use the plural form for the context variable
 
+
+# arrangement detail view
+class ShowArrangementView(DetailView):
+    """The view to show a detail page for a single arrangement."""
+    model = Arrangement  # The model to display
+    template_name = 'bloomboard/show_arrangement.html'  # The template to use
+    context_object_name = 'arrangement'  # The context variable name to access the arrangement in the template
+
+    def get_context_data(self, **kwargs):
+        """Add additional data to the context."""
+        context = super().get_context_data(**kwargs)
+        # Calculate total price of the arrangement
+        arrangement = self.object
+        context['total_price'] = arrangement.calculate_price()
+        # Add flower usage data
+        context['flower_usage'] = arrangement.get_all_flowers()
+        return context
 
 
 
