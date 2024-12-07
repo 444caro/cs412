@@ -19,11 +19,11 @@ class Flower(models.Model):
         return f'{self.name}'
 
 class Vase(models.Model):
-    ''' A model to represent a vase.'''
-    SIZE_CHOICES = [('small','Small'),('medium','Medium'), ('large','Large')]
+    ''' A model to represent a vase or arrangement container '''
+    SIZE_CHOICES = [('small','Small'),('medium','Medium'), ('large','Large'), ('none','N/A')]
     size = models.CharField(max_length=10, choices=SIZE_CHOICES)    # size of the vase
-    height = models.DecimalField(max_digits=5, decimal_places=2) # height of the vase in inches
-    color = models.CharField(max_length=100) # color of the vase
+    height = models.DecimalField(max_digits=5, decimal_places=2, blank = True) # height of the vase in inches
+    color = models.CharField(max_length=100, blank = True) # color of the vase
     price = models.DecimalField(max_digits=5, decimal_places=2) # price of the vase
     image_url = models.URLField(blank = True) # image of the vase
                                 
@@ -65,7 +65,7 @@ class Arrangement(models.Model):
     occassion = models.TextField(blank=True) # occassion for the arrangement
     type = models.TextField(blank=True) # type of arrangement i.e., wrapped bouquet, handtied bouquet, centerpiece, vase, urn, funeral spray, etc.
     image = models.URLField(blank = False)
-    vase = models.ForeignKey('Vase', on_delete=models.CASCADE, blank = True)
+    vase = models.ForeignKey('Vase', on_delete=models.CASCADE, blank = True, null = True)
     
 
     def __str__(self):
