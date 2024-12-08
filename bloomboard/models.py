@@ -109,6 +109,8 @@ class Post(models.Model):
     def __str__(self):
         '''Return a string representation of the object.'''
         return f'Post by {self.profile} at {self.timestamp}'
+    class Meta:
+        ordering = ['-timestamp']
     
 class Comment(models.Model):
     '''A model for comments on posts.'''

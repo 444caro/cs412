@@ -23,7 +23,24 @@
             <td>{{ bbprofile.years_experience }}</td>
         </tr>
     </table> <br> <br>
-<!--        TODO: ARRANGEMENTS BY THIS USER SHOULD ALSO BE DISPLAYED      -->
+   <!-- Display a list of posts by this user in reverse chronological order -->
+   <h3>Posts by {{ bbprofile.firstName }}:</h3>
+   {% for post in bbprofile.post_set.all %}
+        <div class="post">
+        <p><strong>Caption:</strong> {{ post.caption }}</p>
+       
+        {% if post.arrangement %}
+        <a href="{% url 'show_arrangement' post.arrangement.pk %}">
+            <img src="{{ post.arrangement.image }}" alt="Arrangement Image" style="max-width: 300px; border-radius: 10px;">
+        </a>
+        {% endif %}
+       
+        <p><small>Posted at: {{ post.timestamp }}</small></p>
+        </div>
+    {% empty %}
+    <p>No posts to display.</p>
+    {% endfor %}
+    <br> <br>
     <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a> <br>
     <a href="{% url 'update_profile'  %}">Update Profile</a>
 </main>

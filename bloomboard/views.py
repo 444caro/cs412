@@ -72,6 +72,21 @@ class ShowProfilePageView(DetailView):
     template_name = 'bloomboard/show_profile.html'  # The template to use
     context_object_name = 'bbprofile'  # The context variable name to access the profile in the template
 
+    def get_context_data(self, **kwargs):
+        """Add the profile's posts to the context."""
+        # Call the superclass's method to get the existing context
+        context = super().get_context_data(**kwargs)
+        
+        # Fetch the profile instance using the primary key (pk) from the URL
+        bbprofile = self.get_object()
+        
+        # Get all posts by this user, ordered by creation date (reverse chronological)
+        posts = Post.objects.filter(profile=bbprofile).order_by('-timestamp') 
+
+        # Add the posts to the context dictionary
+        context['posts'] = posts
+        
+        return context
     
     def get_absolute_url(self):
         '''Return the URL to display this BBProfile.'''

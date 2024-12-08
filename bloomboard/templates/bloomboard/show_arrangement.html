@@ -1,24 +1,31 @@
 <!-- bloomboard/templates/bloomboard/show_arrangement.html -->
 
-{% extends 'base.html' %}
+{% extends 'bloomboard/base.html' %}
 
 {% block content %}
-<h1>Arrangement Details</h1>
+<h2>Arrangement Details</h2>
+<div style="display: flex; align-items: center; gap: 20px;">
+    <!-- Arrangement Image on the Left -->
+    <div style="flex-shrink: 0;">
+        <img src="{{ arrangement.image }}" alt="Arrangement Image" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    </div>
 
-<!-- Display arrangement image -->
-<img src="{{ arrangement.image }}" alt="Arrangement Image" style="max-width: 100%; height: auto;">
+    <!-- Arrangement Details on the Right -->
+    <div style="flex-grow: 1;">
+        <h3>Info:</h3>
+        <p><strong>Type:</strong> {{ arrangement.type }}</p>
+        <p><strong>Occasion:</strong> {{ arrangement.occassion }}</p>
+        <p><strong>Final Price:</strong> ${{ arrangement.calculate_price }}</p>
+        <p><strong>Created by:</strong> <a href="{{ arrangement.profile.get_absolute_url }}">{{ arrangement.profile }}</a></p>
 
-<!-- Display creator's profile link -->
-<p>Created by: <a href="{{ arrangement.profile.get_absolute_url }}">{{ arrangement.profile }}</a></p>
+        <h3>Flower Usage Recipe:</h3>
+        <ul>
+            {% for flower_usage in arrangement.flower_usages.all %}
+            <li>{{ flower_usage.quantity }} x {{ flower_usage.flower.name }} ({{ flower_usage.flower.use_type }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<br><br>
 
-<!-- Display total price -->
-<p>Total Price: ${{ total_price }}</p>
-
-<!-- Display flower usage recipe -->
-<h2>Flower Usage</h2>
-<ul>
-    {% for flower in flower_usage %}
-    <li>{{ flower.flower__name }}: {{ flower.quantity }} stems</li>
-    {% endfor %}
-</ul>
 {% endblock %}
