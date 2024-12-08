@@ -35,4 +35,19 @@ class CreatePostForm(forms.ModelForm):
             'image': 'Image URL:'
         }
 
-
+class UpdatePostForm(forms.ModelForm):
+    """Form for updating an existing post."""
+    class Meta:
+        model = Post
+        fields = ['caption', 'image']
+        widgets = {
+            'caption': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Update your caption here...',
+                'rows': 3
+            }),
+            'image': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Update the image URL here...'
+            }),
+        }

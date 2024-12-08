@@ -17,7 +17,6 @@ class ShowAllFlowersView(ListView):
     model = Flower #the model to display
     template_name = 'bloomboard/show_all_flowers.html' #the template to use
     context_object_name = 'flowers' #model describes one flower, so we use the plural form for the context variable
-    #note to self, add feature to see arrangements that use this flower, w the ability to click on the arrangement to see the arrangement post
 
 # flower detail view 
 class ShowFlowerView(DetailView):
@@ -25,7 +24,8 @@ class ShowFlowerView(DetailView):
     model = Flower  # The model to display
     template_name = 'bloomboard/show_flower.html'  # The template to use
     context_object_name = 'flower'  # The context variable name to access the flower in the template
-
+    #note to self, add feature to see arrangements that use this flower, w the ability to click on the arrangement to see the arrangement post
+    
     def get_absolute_url(self):
         '''Return the URL to display this flower.'''
         return reverse('show_flower', kwargs={'pk':self.pk})
@@ -129,13 +129,30 @@ class UpdateProfileView(UpdateView, LoginRequiredMixin):
         return get_object_or_404(BBProfile, user=self.request.user)
 
 
-
-
-
-
 ##        POST VIEWS         ##
 
+class DeletePostView(DeleteView, LoginRequiredMixin):
+    model = Post
+    template_name = 'bloomboard/delete_post_form.html'
+    context_object_name = 'post'
 
+    def get_success_url(self):
+        return reverse('show_profile')
+    def test_func(self):
+        return self.request.user == self.get_object().profile.user
+ 
+class UpdatePostView(UpdateView, LoginRequiredMixin):
+    model = Post
+    form_class = UpdatePostForm
+    template_name = 'bloomboard/update_post_form.html'
+
+    # Redirect to profile page after updating
+    def get_success_url(self):
+        return reverse('show_profile')
+    
+    def test_func(self):
+        """Ensure only the post owner can update the post."""
+        return self.request.user == self.get_object().profile.user
 
 
 
