@@ -1,5 +1,4 @@
-/* This CSS was derived from NetNinja's multi-column grid example. */
-
+/* Main styles */
 body {
     margin: 30px;
     background: rgb(167, 208, 169);
@@ -7,39 +6,17 @@ body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
-
-.logout-form{
-    margin: 0px;
-    padding: 0px;
-    background: darkolivegreen
-}
-button {
-    background-color: whitesmoke; 
-    color: darkolivegreen;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 30px;
+header {
+    max-width: 1200px;
+    margin: 40px auto;
+    background: darkolivegreen;
+    color: rgb(167, 208, 169);
+    border-bottom: 1px solid darkolivegreen;
 }
 
-button:hover {
-    background-color: lightgrey; /* Darker blue on hover */
-}
-
-
-.create-profile-form{
-    margin: 10px;
-    padding: 10px;
-    background: rgb(167, 208, 169);
-    border: 1px solid darkolivegreen;
-    border-radius: 10px;
-}
-
-ul, li {
-    padding: 0px;
-    list-style-type: none;
+footer{
+    background: darkolivegreen;
+    padding: 5px;
 }
 
 h1{
@@ -88,27 +65,62 @@ h6{
     margin-right:30px;
 }
 
-
-
 p {
     color: darkolivegreen;
     text-align: left;
 }
 
 
-
-footer{
-    background: darkolivegreen;
-    padding: 5px;
+/* Styles for buttons */
+button {
+    background-color: whitesmoke; 
+    color: darkolivegreen;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 30px;
 }
 
-header {
-    max-width: 1200px;
-    margin: 40px auto;
-    background: darkolivegreen;
-    color: rgb(167, 208, 169);
-    border-bottom: 1px solid darkolivegreen;
+button:hover {
+    background-color: lightgrey; /* Darker blue on hover */
 }
+
+
+/* Syles for lists and tables */
+ul, li {
+    padding: 0px;
+    list-style-type: none;
+}
+
+nav li {
+    display: inline;
+}
+
+th{
+    text-align: left;
+    padding-right: 10px;
+    padding-top:8px;
+}
+
+
+/* Styles for forms */
+.create-profile-form{
+    margin: 10px;
+    padding: 10px;
+    background: rgb(167, 208, 169);
+    border: 1px solid darkolivegreen;
+    border-radius: 10px;
+}
+
+.logout-form{
+    margin: 0px;
+    padding: 0px;
+    background: darkolivegreen
+}
+
+
+/* Styles for showing all profiles */
 
 .profiles-grid-container {
     background: rgb(167, 208, 169);
@@ -117,7 +129,6 @@ header {
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 50px;
     margin: 20px auto;
-
 }
 
 .bbprofile img{
@@ -134,12 +145,35 @@ header {
 }
 
 
-nav li {
-    display: inline;
+/* Styles for profile details */
+.profile-container {
+    display: flex;
+    align-items: center; /* Vertically aligns the image and details */
+    gap: 20px; /* Space between the image and the details */
+    margin: 20px 0;
+}
+
+.profile-image img {
+    max-width: 500px; /* Limit the image size */
+    border-radius: 10px; /* Rounded corners for the image */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+}
+
+.profile-details table {
+    width: 100%; /* Ensure the table fills the available space */
+}
+
+.profile-details th {
+    text-align: left;
+    padding-right: 10px;
+}
+
+.profile-details td {
+    padding-bottom: 5px;
 }
 
 
-
+/* Styles for flowers */
 .flower-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* 5 images per row */
@@ -158,7 +192,7 @@ nav li {
 .flower img {
     max-width: 100%; /* Ensure images fit within their container */
     height: auto;
-    border-radius: 8px; /* Optional: Rounded corners */
+    border-radius: 8px; /* Rounded corners */
 }
 
 .flower h4{
@@ -167,17 +201,37 @@ nav li {
     font-size: 1em;
 }
 
-th{
-    text-align: left;
-    padding-right: 10px;
-    padding-top:8px;
-}
 
+/* Styles for posts */
 .post{
     border: 2px solid #ccc; /* Light gray border */
     border-radius: 10px; /* Rounded corners */
     padding: 15px; /* Space inside the border */
+    padding-left: 20px;
     margin: 15px 0; /* Space between posts */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
-    background-color: #f9f9f9; /* Optional light background for contrast */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    background-color:  rgb(219, 237, 220); 
+
+}
+
+.post-header {
+    display: flex;
+    align-items: baseline; /* Aligns text elements neatly on the same line */
+    gap: 10px; /* Adds spacing between the name and caption */
+}
+
+.post-author {
+    font-weight: bold;
+    margin: 0;
+    color: darkolivegreen; 
+}
+
+.post-caption {
+    margin: 0;
+    font-size: 1.2em;
+    color: darkolivegreen; 
+}
+
+.post h3{
+    text-align: left;
 }
