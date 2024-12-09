@@ -21,8 +21,14 @@
         <h3>Flower Usage Recipe:</h3>
         <ul>
             {% for flower_usage in arrangement.flower_usages.all %}
-            <li>{{ flower_usage.quantity }} x {{ flower_usage.flower.name }} ({{ flower_usage.flower.use_type }})</li>
-            {% endfor %}
+            <li>
+                {{ flower_usage.quantity }} x 
+                <a href="{% url 'show_flower' flower_usage.flower.pk %}">
+                    {{ flower_usage.flower.name }}
+                </a> 
+                ({{ flower_usage.flower.use_type }})
+                {% endfor %}
+            </li>
         </ul>
     </div>
 </div>

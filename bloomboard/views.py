@@ -137,9 +137,10 @@ class DeletePostView(DeleteView, LoginRequiredMixin):
     context_object_name = 'post'
 
     def get_success_url(self):
-        return reverse('show_profile')
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
     def test_func(self):
         return self.request.user == self.get_object().profile.user
+
  
 class UpdatePostView(UpdateView, LoginRequiredMixin):
     model = Post
@@ -148,7 +149,7 @@ class UpdatePostView(UpdateView, LoginRequiredMixin):
 
     # Redirect to profile page after updating
     def get_success_url(self):
-        return reverse('show_profile')
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
     
     def test_func(self):
         """Ensure only the post owner can update the post."""

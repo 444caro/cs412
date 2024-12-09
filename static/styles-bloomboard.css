@@ -172,3 +172,12 @@ th{
     padding-right: 10px;
     padding-top:8px;
 }
+
+.post{
+    border: 2px solid #ccc; /* Light gray border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Space inside the border */
+    margin: 15px 0; /* Space between posts */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    background-color: #f9f9f9; /* Optional light background for contrast */
+}
