@@ -1,0 +1,12 @@
+<!--  bloomboard/template/bloomboard/create_vase_form.html-->
+
+{% extends "bloomboard/base.html" %}
+
+{% block content %}
+<h2>Create a New Vase</h2>
+<form method="post" enctype="multipart/form-data" class="create-profile-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Vase</button>
+</form>
+{% endblock %}

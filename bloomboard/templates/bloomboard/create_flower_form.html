@@ -1,0 +1,12 @@
+<!--  bloomboard/template/bloomboard/create_flower_form.html-->
+  
+{% extends "bloomboard/base.html" %}
+
+{% block content %}
+<h2>Create a New Flower</h2>
+<form method="post" enctype="multipart/form-data" class="create-profile-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Flower</button>
+</form>
+{% endblock %}
