@@ -29,11 +29,13 @@ class UpdateProfileForm(forms.ModelForm):
 class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['caption', 'image']
+        fields = ['caption', 'image', 'arrangement']
         labels = {
-            'caption': 'Caption Your Post:',
-            'image': 'Image URL:'
+            'caption': 'Caption:',
+            'image': 'Image URL:',
+            'arrangement': 'Arrangement (Optional):',
         }
+
 
 class UpdatePostForm(forms.ModelForm):
     """Form for updating an existing post."""
@@ -51,3 +53,40 @@ class UpdatePostForm(forms.ModelForm):
                 'placeholder': 'Update the image URL here...'
             }),
         }
+        
+class CreateFlowerForm(forms.ModelForm):
+    class Meta:
+        model = Flower
+        fields = ['name', 'use_type', 'price_per_stem', 'image_url']
+        labels = {
+            'name': 'Flower Name:',
+            'use_type': 'Use Type:',
+            'price_per_stem': 'Price per Stem:',
+            'image_url': 'Image URL:',
+        }
+        
+class CreateVaseForm(forms.ModelForm):
+    class Meta:
+        model = Vase
+        fields = ['size', 'height', 'color', 'price', 'image_url']
+        labels = {
+            'size': 'Size:',
+            'height': 'Height (inches):',
+            'color': 'Color:',
+            'price': 'Price:',
+            'image_url': 'Image URL:',
+        }
+        
+class CreateArrangementForm(forms.ModelForm):
+    class Meta:
+        model = Arrangement
+        fields = ['profile', 'occassion', 'type', 'image', 'vase']
+        labels = {
+            'profile': 'Designer Profile:',
+            'occassion': 'Occasion:',
+            'type': 'Arrangement Type:',
+            'image': 'Image URL:',
+            'vase': 'Vase (Optional):',
+        }
+        
+
