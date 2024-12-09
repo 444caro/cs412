@@ -4,9 +4,58 @@
 
 {% block content %}
 <h2>Create a New Arrangement</h2>
-<form method="post" enctype="multipart/form-data" class="create-profile-form">
+<form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div>
+        <h3>Arrangement Details</h3>
+        {{ arrangement_form.as_p }}
+    </div>
+
+    <div>
+        <h3>Flowers Used</h3>
+        {{ flower_usage_formset.management_form }}
+        <table id="flower-formset">
+            {% for form in flower_usage_formset %}
+            <tr class="flower-form">
+                <td>{{ form.flower.label }}: {{ form.flower }}</td>
+                <td>{{ form.quantity.label }}: {{ form.quantity }}</td>
+                <td>{% if form.DELETE %}{{ form.DELETE }} Remove{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="button" id="add-flower">Add Another Flower</button>
+    </div>
+
     <button type="submit">Save Arrangement</button>
 </form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addFlowerButton = document.getElementById("add-flower");
+        const formsetTable = document.getElementById("flower-formset");
+        let formIndex = {{ flower_usage_formset.total_form_count|default:3 }};  // Initial count of forms
+
+        addFlowerButton.addEventListener("click", function () {
+            // Get the total forms input and increment its value
+            const totalFormsInput = document.getElementById("id_flower_usages-TOTAL_FORMS");
+            const totalForms = parseInt(totalFormsInput.value, 10);
+            totalFormsInput.value = totalForms + 1;
+
+            // Clone the last form and reset its values
+            const newForm = formsetTable.querySelector(".flower-form:last-child").cloneNode(true);
+            const inputs = newForm.querySelectorAll("input, select");
+
+            inputs.forEach((input) => {
+                input.name = input.name.replace(`-${formIndex - 1}-`, `-${formIndex}-`);
+                input.id = input.id.replace(`-${formIndex - 1}-`, `-${formIndex}-`);
+                if (input.type !== "hidden") {
+                    input.value = "";
+                }
+            });
+
+            formsetTable.appendChild(newForm);
+            formIndex++;
+        });
+    });
+</script>
 {% endblock %}

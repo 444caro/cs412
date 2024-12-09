@@ -2,6 +2,7 @@
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import inlineformset_factory
 
 class CreateProfileForm(forms.ModelForm):
     class Meta:
@@ -87,6 +88,23 @@ class CreateArrangementForm(forms.ModelForm):
             'type': 'Arrangement Type:',
             'image': 'Image URL:',
             'vase': 'Vase (Optional):',
+        }
+# Inline formset for FlowerUsage
+FlowerUsageFormSet = inlineformset_factory(
+    Arrangement,  # Parent model
+    FlowerUsage,  # Related model
+    fields=['flower', 'quantity'],  # Fields to include
+    extra=3,  # Number of empty forms to display
+    can_delete=True  # Allow users to remove flowers from the arrangement
+)
+class FlowerUsageForm(forms.ModelForm):
+    '''Form for adding a flower usage to an arrangement.'''
+    class Meta:
+        model = FlowerUsage
+        fields = ['flower', 'quantity']
+        widgets = {
+            'flower': forms.Select(attrs={'class': 'form-control'}),
+            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
         }
         
 
