@@ -20,7 +20,7 @@ class Flower(models.Model):
 
 class Vase(models.Model):
     ''' A model to represent a vase or arrangement container '''
-    SIZE_CHOICES = [('small','Small'),('medium','Medium'), ('large','Large'), ('none','N/A')]
+    SIZE_CHOICES = [('small','Small'),('medium','Medium'), ('large','Large'), ('none','N/A')]  # none n/a is for arrangements that are not in a vase i.e., wrapped bouquets
     size = models.CharField(max_length=10, choices=SIZE_CHOICES)    # size of the vase
     height = models.DecimalField(max_digits=5, decimal_places=2, blank = True) # height of the vase in inches
     color = models.CharField(max_length=100, blank = True) # color of the vase
@@ -29,7 +29,7 @@ class Vase(models.Model):
                                 
     def __str__(self):
         '''Return a string representation of the object.'''
-        return f'{self.size} {self.color} Vase'
+        return f'{self.height} inch tall {self.size} {self.color} Vase for ${self.price}'
 
 
 
@@ -64,13 +64,13 @@ class Arrangement(models.Model):
     profile = models.ForeignKey('BBProfile', on_delete=models.CASCADE)  # the user who created the arrangement
     occassion = models.TextField(blank=True) # occassion for the arrangement
     type = models.TextField(blank=True) # type of arrangement i.e., wrapped bouquet, handtied bouquet, centerpiece, vase, urn, funeral spray, etc.
-    image = models.URLField(blank = False)
-    vase = models.ForeignKey('Vase', on_delete=models.CASCADE, blank = True, null = True)
+    image = models.URLField(blank = False) # image of the arrangement
+    vase = models.ForeignKey('Vase', on_delete=models.CASCADE, blank = True, null = True) # the vase or container for the arrangement, null if no vase
     
 
     def __str__(self):
         '''Return a string representation of the object.'''
-        return f'Arrangement by {self.profile}'
+        return f'Arrangement {self.pk} by {self.profile}'
 
     def get_all_flowers(self):
         '''Return all flowers and their quantities in the arrangement.'''
@@ -91,7 +91,7 @@ class FlowerUsage(models.Model):
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
-        return f'{self.quantity} x {self.flower.name}'
+        return f'{self.arrangement}: {self.quantity} x {self.flower.name}'
     
 
       
