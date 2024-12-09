@@ -55,6 +55,29 @@ class ShowArrangementView(DetailView):
         context['flower_usage'] = arrangement.get_all_flowers()
         return context
 
+class CreateFlowerView(CreateView, LoginRequiredMixin):
+    model = Flower
+    form_class = CreateFlowerForm
+    template_name = 'bloomboard/create_flower_form.html'
+
+    def get_success_url(self):
+        return reverse('show_all_flowers')
+    
+class CreateVaseView(CreateView, LoginRequiredMixin):
+    model = Vase
+    form_class = CreateVaseForm
+    template_name = 'bloomboard/create_vase_form.html'
+
+    def get_success_url(self):
+        return reverse('show_all_arrangements')
+
+class CreateArrangementView(CreateView, LoginRequiredMixin):
+    model = Arrangement
+    form_class = CreateArrangementForm
+    template_name = 'bloomboard/create_arrangement_form.html'
+
+    def get_success_url(self):
+        return reverse('show_all_arrangements')
 
 
 ##        PROFILE VIEWS         ##
@@ -130,6 +153,17 @@ class UpdateProfileView(UpdateView, LoginRequiredMixin):
 
 
 ##        POST VIEWS         ##
+class CreatePostView(CreateView, LoginRequiredMixin):
+    model = Post
+    form_class = CreatePostForm
+    template_name = 'bloomboard/create_post_form.html'
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.bbprofile
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.request.user.bbprofile.pk})
 
 class DeletePostView(DeleteView, LoginRequiredMixin):
     model = Post
