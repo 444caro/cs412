@@ -5,8 +5,9 @@ def user_profile(request):
     if request.user.is_authenticated:
         try:
             bbprofile = BBProfile.objects.get(user=request.user)
+            first_name = bbprofile.get_first_name()
         except BBProfile.DoesNotExist:
             bbprofile = None
     else:
         bbprofile = None
-    return {'bbprofile': bbprofile}
+    return {'bbprofile': bbprofile, 'first_name': first_name}

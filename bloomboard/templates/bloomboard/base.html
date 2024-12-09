@@ -16,7 +16,7 @@
 
     <footer>
         {% if user.is_authenticated %}
-        <h6 style="text-align: left;">Hello, {{ bbprofile.firstName }}  </h6>
+        <h6 style="text-align: left;">Hello, {{ first_name }}  </h6>
 
         <form method="post" action="{% url 'logout' %}" class="logout-form">
             {% csrf_token %}
