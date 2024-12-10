@@ -22,6 +22,6 @@ urlpatterns=[
     path('flowers/new/', CreateFlowerView.as_view(), name='create_flower'),
     path('vases/new/', CreateVaseView.as_view(), name='create_vase'),
     path('arrangements/new/', CreateArrangementView.as_view(), name='create_arrangement'),
-    path('login/', auth_views.LoginView.as_view(template_name='bloomboard/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='bloomboard/logged_out.html'), name='logout'),
+    path('login/', auth_views.LoginView.as_view(template_name='bloomboard/login.html'), name='loginuser'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='bloomboard/logged_out.html'), name='logoutuser'),
 ]

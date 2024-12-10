@@ -54,6 +54,9 @@
         {% endif %}
        
         <p><small>Posted at: {{ post.timestamp }}</small></p>
+        {%if bbprofile.user == request.user%}
+            <p><small><a href="{% url 'update_post' post.pk %}" class="a-pretty">Update Post</a></small></p>
+        {%endif%}
         </div>
     {% empty %}
     <p>No posts to display.</p>

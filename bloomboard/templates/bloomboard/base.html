@@ -23,13 +23,16 @@
         {% if user.is_authenticated %}
         <h6 style="text-align: left;">Hello, {{ first_name }}  </h6>
 
-        <form method="post" action="{% url 'logout' %}" class="logout-form">
+        <form method="post" action="{% url 'logoutuser' %}" class="logout-form">
             {% csrf_token %}
             <button type="submit">Logout</button>
         </form>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+        {% else %}
+        <br><br>
+        <form method="get" action="{% url 'loginuser' %}" class="login-form">
+            <button type="submit">Login</button>
+        </form>
+        {% endif %}
         <h6>Thanks for visiting BloomBoard!   </h6>
     </footer>
     </body>
