@@ -1,0 +1,41 @@
+<!--  bloomboard/template/bloomboard/update_arrangement_form.html-->
+
+{% extends 'bloomboard/base.html' %}
+
+{% block content %}
+<h2>Update Arrangement</h2>
+<form method="post" enctype="multipart/form-data">
+    <h3>Details</h3>
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <h3>Flowers</h3>
+    {{ flower_usage_formset.management_form }}
+    <table>
+        <thead>
+            <tr>
+                <th>Flower</th>
+                <th>Quantity</th>
+                <th>Delete?</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in flower_usage_formset %}
+            <tr>
+                <td>{{ form.flower }}</td>
+                <td>{{ form.quantity }}</td>
+                <td>{{ form.DELETE }}</td>
+                <td>{{ form.id }}</td>
+                <td>
+                    {% for error in form.non_field_errors %}
+                        <span class="error">{{ error }}</span>
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}

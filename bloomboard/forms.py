@@ -3,6 +3,7 @@ from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import inlineformset_factory
+from django.forms.models import BaseInlineFormSet
 
 class CreateProfileForm(forms.ModelForm):
     class Meta:
@@ -89,22 +90,42 @@ class CreateArrangementForm(forms.ModelForm):
             'image': 'Image URL:',
             'vase': 'Vase (Optional):',
         }
+
+class BaseFlowerUsageFormSet(BaseInlineFormSet):
+    def clean(self):
+        """Override the default clean method to ignore blank rows."""
+        super().clean()
+        for form in self.forms:
+            if not self.can_delete or not form.cleaned_data.get('DELETE', False):
+                # Check if the form is completely empty; if so, skip validation
+                if not form.cleaned_data.get('flower') and not form.cleaned_data.get('quantity'):
+                    continue
+                # Validate partially filled rows
+                if form.cleaned_data.get('flower') and not form.cleaned_data.get('quantity'):
+                    form.add_error('quantity', 'This field is required if a flower is selected.')
+                if not form.cleaned_data.get('flower') and form.cleaned_data.get('quantity'):
+                    form.add_error('flower', 'This field is required if a quantity is provided.')
+                    
+                    
 # Inline formset for FlowerUsage
 FlowerUsageFormSet = inlineformset_factory(
     Arrangement,  # Parent model
     FlowerUsage,  # Related model
     fields=['flower', 'quantity'],  # Fields to include
     extra=5,  # Number of empty forms to display
-    can_delete=True  # Allow users to remove flowers from the arrangement
+    can_delete=True,  # Allow users to remove flowers from the arrangement
+    formset=BaseFlowerUsageFormSet
 )
-class FlowerUsageForm(forms.ModelForm):
-    '''Form for adding a flower usage to an arrangement.'''
+
+
+class UpdateArrangementForm(forms.ModelForm):
     class Meta:
-        model = FlowerUsage
-        fields = ['flower', 'quantity']
-        widgets = {
-            'flower': forms.Select(attrs={'class': 'form-control'}),
-            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
-        }
-        
+        model = Arrangement
+        fields = ['occassion', 'type', 'image', 'vase']
+        labels = {
+            'occassion': 'Occasion:',
+            'type': 'Arrangement Type:',
+            'image': 'Image URL:',
+            'vase': 'Vase (Optional):',
+        }    
 

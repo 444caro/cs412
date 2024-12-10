@@ -16,6 +16,7 @@ urlpatterns=[
     path('flower/<int:pk>/', views.ShowFlowerView.as_view(), name='show_flower'),
     path('arrangements/', ShowAllArrangementsView.as_view(), name='show_all_arrangements'),
     path('arrangement/<int:pk>/', ShowArrangementView.as_view(), name='show_arrangement'),
+    path('arrangement/<int:pk>/update/', UpdateArrangementView.as_view(), name='update_arrangement'),
     path('flowers/new/', CreateFlowerView.as_view(), name='create_flower'),
     path('vases/new/', CreateVaseView.as_view(), name='create_vase'),
     path('arrangements/new/', CreateArrangementView.as_view(), name='create_arrangement'),

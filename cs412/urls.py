@@ -21,10 +21,10 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("bloomboard/", include("bloomboard.urls")),
     path("quotes/", include("quotes.urls")),
     path("formdata/", include("formdata.urls")),
     path("restaurant/", include("restaurant.urls")),
-    path("bloomboard/", include("bloomboard.urls")),
     path("blog/", include("blog.urls")),
     path("mini_fb/", include("mini_fb.urls")),
     path("voter_analytics/", include("voter_analytics.urls")),

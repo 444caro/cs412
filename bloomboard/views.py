@@ -84,9 +84,9 @@ class CreateArrangementView(LoginRequiredMixin, CreateView):
         context['arrangement_form'] = context['form']
         # Use the pre-defined FlowerUsageFormSet
         if self.request.POST:
-            context['flower_usage_formset'] = FlowerUsageFormSet(self.request.POST)
+            context['flower_usage_formset'] = FlowerUsageFormSet(self.request.POST, instance = self.object)
         else:
-            context['flower_usage_formset'] = FlowerUsageFormSet(queryset=FlowerUsage.objects.none())
+            context['flower_usage_formset'] = FlowerUsageFormSet(instance = self.object)
         return context
 
     def form_valid(self, form):
@@ -97,13 +97,16 @@ class CreateArrangementView(LoginRequiredMixin, CreateView):
         if flower_usage_formset.is_valid():
             # Save the arrangement instance
             arrangement = form.save(commit=False)
-            arrangement.profile = self.request.user.bbprofile  # Assuming a one-to-one relationship exists
+            arrangement.profile = self.request.user.bbprofile  # one-to-one relationship exists
             arrangement.save()
 
             # Save flower usages
-            flower_usage_formset.instance = arrangement
-            flower_usage_formset.save()
-
+            flower_usages = flower_usage_formset.save(commit=False)
+            for form in flower_usages:
+                if form.flower and form.quantity:
+                    form.instance.arrangement = arrangement
+                    form.save()
+            flower_usage_formset.save()  # Save the remaining forms and delete any marked for deletion
             return redirect(self.get_success_url())
         else:
             return self.form_invalid(form)
@@ -117,6 +120,54 @@ class CreateArrangementView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         """Redirect to the list of arrangements upon success."""
         return reverse('show_all_arrangements')
+
+class UpdateArrangementView(LoginRequiredMixin, UpdateView):
+    '''The view to update an arrangement and add more flowers to it.'''
+    model = Arrangement
+    form_class = UpdateArrangementForm
+    template_name = 'bloomboard/update_arrangement_form.html'
+
+    def get_context_data(self, **kwargs):
+        """Provide context data for the template."""
+        context = super().get_context_data(**kwargs)
+        context['flower_usage_formset'] = FlowerUsageFormSet(
+            self.request.POST or None, 
+            instance=self.object
+        )
+
+        return context
+
+    def form_valid(self, form):
+        """Handle valid form submissions."""
+        context = self.get_context_data()
+        flower_usage_formset = context['flower_usage_formset']
+        print("POST data:", self.request.POST) # Debugging
+        if flower_usage_formset.is_valid():
+            arrangement = form.save(commit=False)
+            arrangement.profile = self.request.user.bbprofile  # Assuming this field exists
+            arrangement.save()
+
+            # Save flower usages
+            flower_usage_formset.instance = arrangement
+            flower_usage_formset.save()
+
+            return redirect(self.get_success_url())
+        else:
+            # Debugging validation errors
+            print("Formset errors:", flower_usage_formset.errors)
+            print("Non-form errors:", flower_usage_formset.non_form_errors())
+            return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        """Handle invalid form submissions."""
+        context = self.get_context_data()
+        context['form'] = form
+        return self.render_to_response(context)
+
+    def get_success_url(self):
+        """Redirect to the list of arrangements upon success."""
+        return reverse('show_all_arrangements')
+    
     
     
 ##        PROFILE VIEWS         ##
