@@ -91,24 +91,29 @@ class ShowArrangementView(DetailView):
         return context
 
 class CreateFlowerView(LoginRequiredMixin, CreateView):
+    '''The view to create a new flower.'''
     model = Flower
     form_class = CreateFlowerForm
     template_name = 'bloomboard/create_flower_form.html'
 
     def get_success_url(self):
+        '''Return the URL to display the flower page after creation.'''
         return reverse('show_all_flowers')
     
     
     
 class CreateVaseView(LoginRequiredMixin, CreateView):
+    '''The view to create a new vase.'''
     model = Vase
     form_class = CreateVaseForm
     template_name = 'bloomboard/create_vase_form.html'
 
     def get_success_url(self):
+        '''Return the URL to display the vase page after creation.'''
         return reverse('show_all_arrangements')
 
 class CreateArrangementView(LoginRequiredMixin, CreateView):
+    '''The view to create a new arrangement.'''
     model = Arrangement
     form_class = CreateArrangementForm
     template_name = 'bloomboard/create_arrangement_form.html'
@@ -272,6 +277,7 @@ class CreateProfileView(CreateView):
 
 # update profile view (login required )
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
+    '''The view to update an existing profile.'''
     model = BBProfile
     form_class = UpdateProfileForm
     template_name = 'bloomboard/update_profile_form.html'
@@ -282,35 +288,43 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
 
 ##        POST VIEWS         ##
 class CreatePostView(LoginRequiredMixin, CreateView):
+    '''The view to create a new post.'''
     model = Post
     form_class = CreatePostForm
     template_name = 'bloomboard/create_post_form.html'
 
     def form_valid(self, form):
+        '''Add the profile to the post before saving.'''
         form.instance.profile = self.request.user.bbprofile
         return super().form_valid(form)
 
     def get_success_url(self):
+        '''Return the URL to display the profile page after creation.'''
         return reverse('show_profile', kwargs={'pk': self.request.user.bbprofile.pk})
 
 class DeletePostView(LoginRequiredMixin, DeleteView):
+    '''The view to delete a post.'''
     model = Post
     template_name = 'bloomboard/delete_post_form.html'
     context_object_name = 'post'
 
     def get_success_url(self):
+        '''Return the URL to display the profile page after deletion.'''
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
     def test_func(self):
+        ''' Ensure only the post owner can delete the post.'''
         return self.request.user == self.get_object().profile.user
 
  
 class UpdatePostView(LoginRequiredMixin, UpdateView):
+    '''The view to update an existing post.'''
     model = Post
     form_class = UpdatePostForm
     template_name = 'bloomboard/update_post_form.html'
 
     # Redirect to profile page after updating
     def get_success_url(self):
+        '''Return the URL to display the profile page after updating'''
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
     
     def test_func(self):
@@ -318,6 +332,3 @@ class UpdatePostView(LoginRequiredMixin, UpdateView):
         return self.request.user == self.get_object().profile.user
 
 
-
-
-##        COMMENT VIEWS         ##
