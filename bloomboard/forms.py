@@ -94,7 +94,7 @@ FlowerUsageFormSet = inlineformset_factory(
     Arrangement,  # Parent model
     FlowerUsage,  # Related model
     fields=['flower', 'quantity'],  # Fields to include
-    extra=3,  # Number of empty forms to display
+    extra=5,  # Number of empty forms to display
     can_delete=True  # Allow users to remove flowers from the arrangement
 )
 class FlowerUsageForm(forms.ModelForm):

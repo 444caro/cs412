@@ -81,9 +81,8 @@ class CreateArrangementView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         """Provide context data for the template."""
         context = super().get_context_data(**kwargs)
-        # Initialize the flower usage formset if not already in kwargs
-        context['form'] = self.get_form()
-        FlowerUsageFormSet = modelformset_factory(FlowerUsage, form=FlowerUsageForm, extra=1, can_delete=True)
+        context['arrangement_form'] = context['form']
+        # Use the pre-defined FlowerUsageFormSet
         if self.request.POST:
             context['flower_usage_formset'] = FlowerUsageFormSet(self.request.POST)
         else:
@@ -112,42 +111,12 @@ class CreateArrangementView(LoginRequiredMixin, CreateView):
     def form_invalid(self, form):
         """Handle invalid form submissions."""
         context = self.get_context_data()
+        context['form'] = form
         return self.render_to_response(context)
 
     def get_success_url(self):
         """Redirect to the list of arrangements upon success."""
         return reverse('show_all_arrangements')
-
-@login_required
-def create_arrangement(request):
-    FlowerUsageFormSet = modelformset_factory(FlowerUsage, form=FlowerUsageForm, extra=1, can_delete=True)
-
-    if request.method == "POST":
-        arrangement_form = CreateArrangementForm(request.POST)
-        flower_usage_formset = FlowerUsageFormSet(request.POST, queryset=FlowerUsage.objects.none())
-
-        if arrangement_form.is_valid() and flower_usage_formset.is_valid():
-            # Save the arrangement
-            arrangement = arrangement_form.save(commit=False)
-            arrangement.profile = request.user.bbprofile
-            arrangement.save()
-
-            # Save flower usages
-            for form in flower_usage_formset:
-                if form.cleaned_data:  # Avoid empty forms
-                    flower_usage = form.save(commit=False)
-                    flower_usage.arrangement = arrangement
-                    flower_usage.save()
-
-            return redirect('show_all_arrangements')
-    else:
-        arrangement_form = CreateArrangementForm()
-        flower_usage_formset = FlowerUsageFormSet(queryset=FlowerUsage.objects.none())
-
-    return render(request, 'bloomboard/create_arrangement_form.html', {
-        'form': arrangement_form,
-        'flower_usage_formset': flower_usage_formset,
-    })
     
     
 ##        PROFILE VIEWS         ##

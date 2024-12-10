@@ -4,7 +4,8 @@
 
 {% block content %}
 <h2>Create a New Arrangement</h2>
-<form method="post", enctype="multipart/form-data">
+
+<form method="post" enctype="multipart/form-data" id="arrangement-form">
     {% csrf_token %}
     <div>
         <h3>Arrangement Details</h3>
@@ -23,39 +24,14 @@
             </tr>
             {% endfor %}
         </table>
-        <button type="button" id="add-flower">Add Another Flower</button>
     </div>
-
-    <button type="submit">Save Arrangement</button>
+    <br><br>
+    <div>
+        <button type="submit">Save Arrangement</button>
+    </div>
 </form>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const addFlowerButton = document.getElementById("add-flower");
-        const formsetTable = document.getElementById("flower-formset");
-        let formIndex = {{ flower_usage_formset.total_form_count|default:3 }};  // Initial count of forms
 
-        addFlowerButton.addEventListener("click", function () {
-            // Get the total forms input and increment its value
-            const totalFormsInput = document.getElementById("id_flower_usages-TOTAL_FORMS");
-            const totalForms = parseInt(totalFormsInput.value, 10);
-            totalFormsInput.value = totalForms + 1;
 
-            // Clone the last form and reset its values
-            const newForm = formsetTable.querySelector(".flower-form:last-child").cloneNode(true);
-            const inputs = newForm.querySelectorAll("input, select");
-
-            inputs.forEach((input) => {
-                input.name = input.name.replace(`-${formIndex - 1}-`, `-${formIndex}-`);
-                input.id = input.id.replace(`-${formIndex - 1}-`, `-${formIndex}-`);
-                if (input.type !== "hidden") {
-                    input.value = "";
-                }
-            });
-
-            formsetTable.appendChild(newForm);
-            formIndex++;
-        });
-    });
-</script>
 {% endblock %}
+
