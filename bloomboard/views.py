@@ -20,6 +20,27 @@ class ShowAllFlowersView(ListView):
     template_name = 'bloomboard/show_all_flowers.html' #the template to use
     context_object_name = 'flowers' #model describes one flower, so we use the plural form for the context variable
 
+# show filtered flowers
+class ShowFilteredFlowersView(ListView):
+    '''the view to show all flowers that match a filter inputted by the user's form'''
+    model = Flower #the model to display
+    template_name = 'bloomboard/show_filtered_flowers.html' #the template to use
+    context_object_name = 'flowers' #model describes one flower, so we use the plural form for the context variable
+    
+    def get_queryset(self):
+        '''Filter the queryset based on the form data'''
+        queryset = super().get_queryset()
+        form = FlowerFilterForm(self.request.GET)
+        if form.is_valid():
+            queryset = form.filter_queryset(queryset)
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        '''Add the filter form to the context'''
+        context = super().get_context_data(**kwargs)
+        context['filter_form'] = FlowerFilterForm(self.request.GET)
+        return context
+
 # flower detail view 
 class ShowFlowerView(DetailView):
     """The view to show a profile page for a single flower."""

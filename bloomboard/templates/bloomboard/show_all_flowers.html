@@ -3,6 +3,7 @@
 <!-- display all flowers -->
 {% block content %}
 <h5>Showing all Flowers</h5>
+<a href="{% url 'show_filtered_flowers' %}" class = "a-pretty" >Filter Flowers</a>
 <main class="flower-grid">
     {% for f in flowers %}
     <div class="flower">

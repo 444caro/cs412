@@ -1,4 +1,5 @@
 # bloomboard/forms.py
+
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
@@ -6,6 +7,7 @@ from django.forms import inlineformset_factory
 from django.forms.models import BaseInlineFormSet
 
 class CreateProfileForm(forms.ModelForm):
+    '''Form for creating a new BBProfile.'''
     class Meta:
         model = BBProfile
         fields = ['firstName', 'lastName', 'city', 'years_experience', 'image_url']
@@ -18,6 +20,7 @@ class CreateProfileForm(forms.ModelForm):
         }
 
 class UpdateProfileForm(forms.ModelForm):
+    '''Form for updating an existing BBProfile.'''
     class Meta:
         model = BBProfile
         # Exclude the first name and last name from being updated
@@ -29,6 +32,7 @@ class UpdateProfileForm(forms.ModelForm):
         }
 
 class CreatePostForm(forms.ModelForm):
+    """Form for creating a new post."""
     class Meta:
         model = Post
         fields = ['caption', 'image', 'arrangement']
@@ -57,6 +61,7 @@ class UpdatePostForm(forms.ModelForm):
         }
         
 class CreateFlowerForm(forms.ModelForm):
+    '''Form for creating a new Flower.'''
     class Meta:
         model = Flower
         fields = ['name', 'use_type', 'price_per_stem', 'image_url']
@@ -66,8 +71,63 @@ class CreateFlowerForm(forms.ModelForm):
             'price_per_stem': 'Price per Stem:',
             'image_url': 'Image URL:',
         }
+       
+class FlowerFilterForm(forms.Form):
+    '''Form for filtering flowers by use type.'''
+    USE_TYPE_CHOICES = [('filler','Filler'),('focal','Focal'), ('greens','Greens')]
+    
+    # Use type filter (Dropdown/ChoiceField)
+    use_type = forms.ChoiceField(
+        choices=[('', 'All')] + USE_TYPE_CHOICES,  # Adding an "All" option for no filtering
+        label='Use Type',
+        required=False
+    )
+    
+    # Minimum price filter
+    min_price = forms.DecimalField(
+        label='Minimum Price per Stem',
+        required=False,
+        decimal_places=2,
+        max_digits=10,
+        widget=forms.NumberInput(attrs={'placeholder': 'e.g., 1.00'})
+    )
+    
+    # Maximum price filter
+    max_price = forms.DecimalField(
+        label='Maximum Price per Stem',
+        required=False,
+        decimal_places=2,
+        max_digits=10,
+        widget=forms.NumberInput(attrs={'placeholder': 'e.g., 10.00'})
+    )
+    
+    
+    def filter_queryset(self, queryset):
+        """Filter the given queryset based on form inputs."""
+        # Filter by use type
+        use_type = self.cleaned_data.get('use_type')
+        if use_type:
+            queryset = queryset.filter(use_type=use_type)
         
+        # Filter by minimum price
+        min_price = self.cleaned_data.get('min_price')
+        if min_price is not None:
+            queryset = queryset.filter(price_per_stem__gte=min_price)
+        
+        # Filter by maximum price
+        max_price = self.cleaned_data.get('max_price')
+        if max_price is not None:
+            queryset = queryset.filter(price_per_stem__lte=max_price)
+        
+        return queryset
+    
+
+    
+
+    
+    
 class CreateVaseForm(forms.ModelForm):
+    '''Form for creating a new Vase.'''
     class Meta:
         model = Vase
         fields = ['size', 'height', 'color', 'price', 'image_url']
@@ -80,6 +140,7 @@ class CreateVaseForm(forms.ModelForm):
         }
         
 class CreateArrangementForm(forms.ModelForm):
+    '''Form for creating a new Arrangement.'''
     class Meta:
         model = Arrangement
         fields = ['profile', 'occassion', 'type', 'image', 'vase']
@@ -92,6 +153,7 @@ class CreateArrangementForm(forms.ModelForm):
         }
 
 class BaseFlowerUsageFormSet(BaseInlineFormSet):
+    """Custom formset to validate partially filled rows."""
     def clean(self):
         """Override the default clean method to ignore blank rows."""
         super().clean()
@@ -117,8 +179,8 @@ FlowerUsageFormSet = inlineformset_factory(
     formset=BaseFlowerUsageFormSet
 )
 
-
 class UpdateArrangementForm(forms.ModelForm):
+    '''Form for updating an existing Arrangement.'''
     class Meta:
         model = Arrangement
         fields = ['occassion', 'type', 'image', 'vase']

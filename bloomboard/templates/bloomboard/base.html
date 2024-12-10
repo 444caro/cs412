@@ -9,6 +9,11 @@
     <body>
         <header>
             <h1>BloomBoard</h1>
+            <nav>
+                <a href="{% url 'show_profiles' %}">All Profiles</a>
+                <a href="{% url 'show_all_arrangements' %}">All Arrangements</a>
+                <a href="{% url 'show_all_flowers' %}">All Flowers</a>
+            </nav>
         </header>
     
     {% block content %}

@@ -1,0 +1,34 @@
+<!-- templates/bloomboard/show_filtered_flowers.html -->
+{% extends 'bloomboard/base.html' %}
+<!-- display all filteredflowers -->
+{% block content %}
+<form method="GET">
+    <div style="display: flex; align-items: center; gap: 150px;">
+        <!-- form Image on the Left -->
+        <div style="flex-shrink: 0;">
+            {{filter_form.as_p}}
+        </div>
+    
+        <!-- submit button on the Right -->
+        <div style="flex-grow: 1; text-align:left;">
+            <button type = "submit" class="button-pretty" role="button">Filter</button>
+        </div>
+    </div>
+</form>
+<h5>Showing all Filtered Flowers</h5>
+<main class="flower-grid">
+    {% for f in flowers %}
+    <div class="flower">
+        <a href="{% url 'show_flower' f.id %}">
+        <img src="{{ f.image_url }}" alt="{{ f.name }}">
+        <div>
+            <h4>{{ f.name }}</h4>
+        </div>
+        </a>
+    </div>
+    {% endfor %}
+</main>
+<br>
+<a href="{% url 'show_all_flowers' %}"class="a-pretty">Back to All Flowers</a>
+<br><br>
+{% endblock %}

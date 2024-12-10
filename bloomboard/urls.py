@@ -13,6 +13,7 @@ urlpatterns=[
     path('post/<int:pk>/delete/', views.DeletePostView.as_view(), name='delete_post'),
     path('post/<int:pk>/update/', views.UpdatePostView.as_view(), name='update_post'),
     path('show_all_flowers/', views.ShowAllFlowersView.as_view(), name='show_all_flowers'),
+    path('show_filtered_flowers/', views.ShowFilteredFlowersView.as_view(), name='show_filtered_flowers'),
     path('flower/<int:pk>/', views.ShowFlowerView.as_view(), name='show_flower'),
     path('arrangements/', ShowAllArrangementsView.as_view(), name='show_all_arrangements'),
     path('arrangement/<int:pk>/', ShowArrangementView.as_view(), name='show_arrangement'),

@@ -7,11 +7,12 @@ body {
 }
 
 header {
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 40px auto;
     background: darkolivegreen;
     color: rgb(167, 208, 169);
     border-bottom: 1px solid darkolivegreen;
+    padding:5px;
 }
 
 footer{
@@ -86,6 +87,123 @@ button:hover {
     background-color: lightgrey; /* Darker blue on hover */
 }
 
+.button-pretty{
+    all: unset;
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    position: relative;
+    color: #f0f0f0;
+    cursor: pointer;
+    z-index: 1;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button-pretty::after,
+  .button-pretty::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -99999;
+    transition: all .4s;
+  }
+  
+  .button-pretty::before {
+    transform: translate(0%, 0%);
+    width: 100%;
+    height: 100%;
+    background: darkolivegreen;
+    border-radius: 10px;
+  }
+  
+  .button-pretty::after {
+    transform: translate(10px, 10px);
+    width: 35px;
+    height: 35px;
+    background: #ffffff15;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 50px;
+  }
+  
+  .button-pretty:hover::before {
+    transform: translate(5%, 20%);
+    width: 110%;
+    height: 110%;
+  }
+  
+  .button-pretty:hover::after {
+    border-radius: 10px;
+    transform: translate(0, 0);
+    width: 100%;
+    height: 100%;
+  }
+  
+  .button-pretty:active::after {
+    transition: 0s;
+    transform: translate(0, 5%);
+  }
+
+/* Styles for links */
+a {
+    text-decoration: none; /* Remove underline */
+    color: darkolivegreen; /* Set the text color */
+    font-weight: normal; /* Ensure the default weight is normal */
+    transition: all 0.5s ease; /* Smooth transition for hover effects */
+}
+a:hover{
+    font-weight: bold; /* Bold the text on hover */
+}
+
+.a-pretty{
+    padding-left:25px;
+    padding-right:10px;
+    text-decoration: none; /* Remove underline */
+    color: darkolivegreen; /* Set the text color */
+    font-weight: normal; /* Ensure the default weight is normal */
+    transition: all 0.5s ease; /* Smooth transition for hover effects */
+}
+
+.a-pretty:hover {
+    padding-left: 25px;
+    padding-right:10px;
+    font-weight: bold; /* Bold the text on hover */
+    background-color: rgba(85, 107, 47, 0.2); /* Highlight with a light background */
+    border-radius: 50px; /* Create a circular effect around text */
+    padding-top: 10px; /* Add padding to create space for the highlight */
+}
+
+/* Styles for navigation */
+nav {
+    display: flex;
+    gap: 150px;
+    background-color: darkolivegreen;
+    padding: 10px 20px;
+}
+
+nav a {
+    text-decoration: none;
+    letter-spacing: 4px;
+    color: rgb(167, 208, 169);
+    font-weight: bold;
+    transition: color 0.5s ease;
+}
+
+nav a:hover {
+    color: rgb(219, 237, 220);
+    letter-spacing: 10px;
+}
+
 
 /* Syles for lists and tables */
 ul, li {
@@ -93,9 +211,6 @@ ul, li {
     list-style-type: none;
 }
 
-nav li {
-    display: inline;
-}
 
 th{
     text-align: left;
