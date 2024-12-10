@@ -98,6 +98,8 @@ class CreateFlowerView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('show_all_flowers')
     
+    
+    
 class CreateVaseView(LoginRequiredMixin, CreateView):
     model = Vase
     form_class = CreateVaseForm
@@ -115,6 +117,7 @@ class CreateArrangementView(LoginRequiredMixin, CreateView):
         """Provide context data for the template."""
         context = super().get_context_data(**kwargs)
         context['arrangement_form'] = context['form']
+        context['profile'] = self.request.user.bbprofile
         # Use the pre-defined FlowerUsageFormSet
         if self.request.POST:
             context['flower_usage_formset'] = FlowerUsageFormSet(self.request.POST, instance = self.object)
@@ -126,20 +129,22 @@ class CreateArrangementView(LoginRequiredMixin, CreateView):
         """Handle valid form submissions."""
         context = self.get_context_data()
         flower_usage_formset = context['flower_usage_formset']
+        # Save the arrangement instance
+        arrangement = form.save(commit=False)
+        arrangement.profile = self.request.user.bbprofile  # Ensure profile is set
+        arrangement.save()  # Save the arrangement to the database
+
+        # Initialize the flower usage formset with the saved arrangement
+        flower_usage_formset = FlowerUsageFormSet(self.request.POST, instance=arrangement)
 
         if flower_usage_formset.is_valid():
-            # Save the arrangement instance
-            arrangement = form.save(commit=False)
-            arrangement.profile = self.request.user.bbprofile  # one-to-one relationship exists
-            arrangement.save()
-
             # Save flower usages
             flower_usages = flower_usage_formset.save(commit=False)
-            for form in flower_usages:
-                if form.flower and form.quantity:
-                    form.instance.arrangement = arrangement
-                    form.save()
-            flower_usage_formset.save()  # Save the remaining forms and delete any marked for deletion
+            for flower_usage in flower_usages:
+                flower_usage.arrangement = arrangement
+                flower_usage.save()
+            # Save any remaining changes in the formset, e.g., marked-for-deletion items
+            flower_usage_formset.save()
             return redirect(self.get_success_url())
         else:
             return self.form_invalid(form)
@@ -151,7 +156,7 @@ class CreateArrangementView(LoginRequiredMixin, CreateView):
         return self.render_to_response(context)
 
     def get_success_url(self):
-        """Redirect to the list of arrangements upon success."""
+        """Redirect to the detail view of the arrangment upon success."""
         return reverse('show_all_arrangements')
 
 class UpdateArrangementView(LoginRequiredMixin, UpdateView):

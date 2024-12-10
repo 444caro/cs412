@@ -1,6 +1,6 @@
 <!-- bloomboard/update_profile_form.html -->
 
-{% extends 'base.html' %}
+{% extends 'bloomboard/base.html' %}
 
 {% block content %}
   <h2>Update Your Profile</h2>
@@ -8,5 +8,6 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Update Profile</button>
+    <a href="{% url 'show_profile' bbprofile.pk %}" class="btn btn-secondary">Cancel</a>
   </form>
 {% endblock %}

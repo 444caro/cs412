@@ -32,6 +32,10 @@
         </ul>
     </div>
 </div>
+{% if arrangement.profile.user == request.user %}
+    <br><br>
+    <a href="{% url 'update_arrangement' arrangement.pk %}"class = "a-pretty">Edit Arrangement</a></th>
+{% endif %}
 <br>
 <a href="{% url 'show_all_arrangements' %}">Back to All Arrangements</a>
 <br><br>

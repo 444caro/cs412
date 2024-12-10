@@ -143,9 +143,8 @@ class CreateArrangementForm(forms.ModelForm):
     '''Form for creating a new Arrangement.'''
     class Meta:
         model = Arrangement
-        fields = ['profile', 'occassion', 'type', 'image', 'vase']
+        fields = [ 'occassion', 'type', 'image', 'vase']
         labels = {
-            'profile': 'Designer Profile:',
             'occassion': 'Occasion:',
             'type': 'Arrangement Type:',
             'image': 'Image URL:',

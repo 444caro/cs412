@@ -31,9 +31,15 @@
             </table>
         </div>
     </div>
-    <br><br>
+    {% if bbprofile.user == request.user %}
+        <a href="{% url 'update_profile' bbprofile.pk%}"class = "a-pretty">Update Profile</a>
+    {% endif %}
+    <br>
    <!-- Display a list of posts by this user in reverse chronological order -->
    <h2>Posts by {{ bbprofile.firstName }}</h2>
+    {% if bbprofile.user == request.user %}
+        <a href="{% url 'create_post' %}" class = "a-pretty ">Create New Post</a>
+    {% endif %}
    {% for post in bbprofile.post_set.all %}
         <div class="post">
             <div class="post-header">
@@ -53,7 +59,7 @@
     <p>No posts to display.</p>
     {% endfor %}
     <br> <br>
-    <a href="{% url 'show_profiles' %}">Back to All Profiles</a> <br>
-    <a href="{% url 'update_profile'  %}">Update Profile</a>
+    <a href="{% url 'show_profiles' %}" class = "a-pretty">Back to All Profiles</a> 
+    <br><br>
 </main>
 {% endblock %}

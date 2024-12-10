@@ -10,6 +10,7 @@ urlpatterns=[
     path('profile/<int:pk>/', views.ShowProfilePageView.as_view(), name='show_profile'),
     path('create_profile/', views.CreateProfileView.as_view(), name='create_profile'),
     path('profile/<int:pk>/update/', views.UpdateProfileView.as_view(), name='update_profile'),
+    path('post/new/', views.CreatePostView.as_view(), name='create_post'),
     path('post/<int:pk>/delete/', views.DeletePostView.as_view(), name='delete_post'),
     path('post/<int:pk>/update/', views.UpdatePostView.as_view(), name='update_post'),
     path('show_all_flowers/', views.ShowAllFlowersView.as_view(), name='show_all_flowers'),

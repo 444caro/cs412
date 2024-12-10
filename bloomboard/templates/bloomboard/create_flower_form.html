@@ -7,6 +7,6 @@
 <form method="post" enctype="multipart/form-data" class="create-profile-form">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save Flower</button>
+    <button type="submit" class = "pretty">Save Flower</button>
 </form>
 {% endblock %}
