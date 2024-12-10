@@ -15,9 +15,26 @@
             <td>${{ flower.price_per_stem }}</td>
         </tr>
         
-    </table> <br> <br>
-<!--        TODO: ARRANGEMENTS USING THIS FLOWER SHOULD ALSO BE DISPLAYED      -->
+    </table>
+
+    <h2> Arrangements Using This Flower  </h2> 
+    {% if arrangements%}
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            {% for arrangement in arrangements %}
+            <div style="text-align: center; max-width: 200px;">
+                <!-- Clickable image linking to the detail view -->
+                <a href="{% url 'show_arrangement' arrangement.pk %}">
+                    <img src="{{ arrangement.image }}" alt="Arrangement Image" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No Bloomboard arrangements use this flower yet.</p>
+    {% endif %}
+    <br>
     <a href="{% url 'show_all_flowers' %}">Back to All Flowers</a> 
+    <br><br>
 
 </main>
 {% endblock %}

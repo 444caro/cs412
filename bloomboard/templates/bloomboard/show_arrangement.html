@@ -15,7 +15,7 @@
         <h3>Info:</h3>
         <p><strong>Type:</strong> {{ arrangement.type }}</p>
         <p><strong>Occasion:</strong> {{ arrangement.occassion }}</p>
-        <p><strong>Final Price:</strong> ${{ arrangement.calculate_price }}</p>
+        <p><strong>Estimated Final Price:</strong> ${{ arrangement.calculate_price }}</p>
         <p><strong>Created by:</strong> <a href="{{ arrangement.profile.get_absolute_url }}">{{ arrangement.profile }}</a></p>
 
         <h3>Flower Usage Recipe:</h3>
@@ -32,6 +32,8 @@
         </ul>
     </div>
 </div>
+<br>
+<a href="{% url 'show_all_arrangements' %}">Back to All Arrangements</a>
 <br><br>
 
 {% endblock %}

@@ -17,6 +17,9 @@ class Flower(models.Model):
     def __str__(self):
         '''Return a string representation of the object.'''
         return f'{self.name}'
+    
+        
+        
 
 class Vase(models.Model):
     ''' A model to represent a vase or arrangement container '''
@@ -82,6 +85,8 @@ class Arrangement(models.Model):
             usage.quantity * usage.flower.price_per_stem
             for usage in self.flower_usages.all()
         )
+        if self.vase is None:
+            return flower_cost
         return flower_cost + self.vase.price
 
 class FlowerUsage(models.Model):

@@ -31,6 +31,18 @@ class ShowFlowerView(DetailView):
     def get_absolute_url(self):
         '''Return the URL to display this flower.'''
         return reverse('show_flower', kwargs={'pk':self.pk})
+    
+    def get_arrangements(self):
+        '''Return all arrangements that use this flower.'''
+        flower_usages = FlowerUsage.objects.filter(flower=self.object)  # get all flower usages of this flower
+        arrangements = [usage.arrangement for usage in flower_usages]  # get the arrangements from the flower usages
+        return arrangements
+    
+    def get_context_data(self, **kwargs):
+        '''Add the arrangements that use this flower to the context.'''
+        context = super().get_context_data(**kwargs)
+        context['arrangements'] = self.get_arrangements()
+        return context
 
 # arrangement list view
 class ShowAllArrangementsView(ListView):
