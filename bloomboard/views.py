@@ -57,7 +57,7 @@ class ShowArrangementView(DetailView):
         context['flower_usage'] = arrangement.get_all_flowers()
         return context
 
-class CreateFlowerView(CreateView, LoginRequiredMixin):
+class CreateFlowerView(LoginRequiredMixin, CreateView):
     model = Flower
     form_class = CreateFlowerForm
     template_name = 'bloomboard/create_flower_form.html'
@@ -65,7 +65,7 @@ class CreateFlowerView(CreateView, LoginRequiredMixin):
     def get_success_url(self):
         return reverse('show_all_flowers')
     
-class CreateVaseView(CreateView, LoginRequiredMixin):
+class CreateVaseView(LoginRequiredMixin, CreateView):
     model = Vase
     form_class = CreateVaseForm
     template_name = 'bloomboard/create_vase_form.html'
@@ -73,7 +73,7 @@ class CreateVaseView(CreateView, LoginRequiredMixin):
     def get_success_url(self):
         return reverse('show_all_arrangements')
 
-class CreateArrangementView(CreateView, LoginRequiredMixin):
+class CreateArrangementView(LoginRequiredMixin, CreateView):
     model = Arrangement
     form_class = CreateArrangementForm
     template_name = 'bloomboard/create_arrangement_form.html'
@@ -82,6 +82,7 @@ class CreateArrangementView(CreateView, LoginRequiredMixin):
         """Provide context data for the template."""
         context = super().get_context_data(**kwargs)
         # Initialize the flower usage formset if not already in kwargs
+        context['form'] = self.get_form()
         FlowerUsageFormSet = modelformset_factory(FlowerUsage, form=FlowerUsageForm, extra=1, can_delete=True)
         if self.request.POST:
             context['flower_usage_formset'] = FlowerUsageFormSet(self.request.POST)
@@ -212,7 +213,7 @@ class CreateProfileView(CreateView):
         return reverse('show_profile')
 
 # update profile view (login required )
-class UpdateProfileView(UpdateView, LoginRequiredMixin):
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = BBProfile
     form_class = UpdateProfileForm
     template_name = 'bloomboard/update_profile_form.html'
@@ -222,7 +223,7 @@ class UpdateProfileView(UpdateView, LoginRequiredMixin):
 
 
 ##        POST VIEWS         ##
-class CreatePostView(CreateView, LoginRequiredMixin):
+class CreatePostView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = CreatePostForm
     template_name = 'bloomboard/create_post_form.html'
@@ -234,7 +235,7 @@ class CreatePostView(CreateView, LoginRequiredMixin):
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.request.user.bbprofile.pk})
 
-class DeletePostView(DeleteView, LoginRequiredMixin):
+class DeletePostView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'bloomboard/delete_post_form.html'
     context_object_name = 'post'
@@ -245,7 +246,7 @@ class DeletePostView(DeleteView, LoginRequiredMixin):
         return self.request.user == self.get_object().profile.user
 
  
-class UpdatePostView(UpdateView, LoginRequiredMixin):
+class UpdatePostView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = UpdatePostForm
     template_name = 'bloomboard/update_post_form.html'
